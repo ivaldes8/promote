@@ -1,11 +1,10 @@
 const express = require('express')
-const { appendFile } = require('fs')
 const router = express.Router()
 const {getHome, createHome, updateHome, deleteHome} = require('../controllers/homeController')
 
-const { protect } = require('../middlewares/authMiddleware')
+const { admin } = require('../middlewares/adminMiddleware')
 
-router.route('/').get(getHome).post(protect,createHome)
-router.route('/:id').put(protect, updateHome).delete(protect, deleteHome)
+router.route('/').get(getHome).post(admin,createHome)
+router.route('/:id').put(admin, updateHome).delete(admin, deleteHome)
 
 module.exports = router
