@@ -1,5 +1,5 @@
 {
-  "name": "quantum",
+  "name": "promote",
   "version": "1.0.0",
   "description": "Your own investments portafolio in one please",
   "main": "server.js",
@@ -11,14 +11,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ivaldes8/quantum.git"
+    "url": "git+https://github.com/ivaldes8/promote.git"
   },
   "author": "Ivan Gonzalez",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/ivaldes8/quantum/issues"
+    "url": "https://github.com/ivaldes8/promote/issues"
   },
-  "homepage": "https://github.com/ivaldes8/quantum#readme",
+  "homepage": "https://github.com/ivaldes8/promote#readme",
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "colors": "^1.4.0",

@@ -20,16 +20,6 @@ const createHomeCard = asyncHandler(async (req, res) => {
     throw new Error("Please add a description");
   }
 
-  // if (!req.user) {
-  //   res.status(401)
-  //   throw new Error('User not found')
-  // }
-
-  // if (req.user.role !== 'Admin') {
-  //   res.status(401)
-  //   throw new Error('User not authorized')
-  // }
-
   const homeCard = await HomeCard.create({
     title: req.body.title,
     description: req.body.description,
@@ -46,16 +36,6 @@ const updateHomeCard = asyncHandler(async (req, res) => {
     throw new Error("home card not found");
   }
 
-  // if (!req.user) {
-  //   res.status(401)
-  //   throw new Error('User not found')
-  // }
-
-  // if (req.user.role !== 'Admin') {
-  //   res.status(401)
-  //   throw new Error('User not authorized')
-  // }
-
   const updatedHomeCard = await HomeCard.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   });
@@ -69,16 +49,6 @@ const deleteHomeCard = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("home card not found");
   }
-
-  // if (!req.user) {
-  //   res.status(401)
-  //   throw new Error('User not found')
-  // }
-
-  // if (req.user.role !== 'Admin') {
-  //   res.status(401)
-  //   throw new Error('User not authorized')
-  // }
 
   await homeCard.remove();
   res.status(200).json({ id: req.params.id });

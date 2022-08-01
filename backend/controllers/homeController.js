@@ -37,16 +37,6 @@ const createHome = asyncHandler(async (req, res) => {
     throw new Error("Please add a card");
   }
 
-  // if (!req.user) {
-  //   res.status(401)
-  //   throw new Error('User not found')
-  // }
-
-  // if (req.user.role !== 'Admin') {
-  //   res.status(401)
-  //   throw new Error('User not authorized')
-  // }
-
   const storageHome = await Home.create({
     aboutTitle: req.body.aboutTitle,
     aboutDescription: req.body.aboutDescription,
@@ -70,16 +60,6 @@ const updateHome = asyncHandler(async (req, res) => {
     throw new Error("home not found");
   }
 
-  // if (!req.user) {
-  //   res.status(401)
-  //   throw new Error('User not found')
-  // }
-
-  // if (req.user.role !== 'Admin') {
-  //   res.status(401)
-  //   throw new Error('User not authorized')
-  // }
-
   const updatedHome = await Home.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
   }).populate("cards");
@@ -93,16 +73,6 @@ const deleteHome = asyncHandler(async (req, res) => {
     res.status(400);
     throw new Error("home not found");
   }
-
-  // if (!req.user) {
-  //   res.status(401)
-  //   throw new Error('User not found')
-  // }
-
-  // if (req.user.role !== 'Admin') {
-  //   res.status(401)
-  //   throw new Error('User not authorized')
-  // }
 
   await home.remove();
   res.status(200).json({ id: req.params.id });
