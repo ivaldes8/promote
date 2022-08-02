@@ -24,7 +24,6 @@ const createProfile = asyncHandler(async (req, res) => {
     user: req.user.id,
     img: req.body.img,
     active: req.body.active,
-    fraseDescription: req.body.fraseDescription,
   });
 
   res.status(200).json({ profile });

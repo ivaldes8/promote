@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const {getHome, createHome, updateHome, deleteHome} = require('../controllers/homeController')
 
-const { admin } = require('../middlewares/adminMiddleware')
+const { admin } = require('../middlewares/authMiddleware')
 
 router.route('/').get(getHome).post(admin,createHome)
 router.route('/:id').put(admin, updateHome).delete(admin, deleteHome)

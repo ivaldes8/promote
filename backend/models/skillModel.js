@@ -2,6 +2,11 @@ const mongoose = require("mongoose");
 
 const skillSchema = mongoose.Schema(
   {
+    user: {
+      type: mongoose.Schema.Types.ObjectId,
+      required: [true, "Please add a user"],
+      ref: "User",
+    },
     name: {
       type: String,
       unique: true,

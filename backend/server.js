@@ -15,6 +15,7 @@ app.use(express.urlencoded({limit: "5mb", extended: true}))
 
 app.use('/api/users', require('./routes/userRoutes'))
 app.use('/api/profile', require('./routes/profileRoutes'))
+app.use('/api/skill', require('./routes/skillRoutes'))
 app.use('/api/home', require('./routes/homeRoutes'))
 app.use('/api/homeCards', require('./routes/homeCardRoutes'))
 
