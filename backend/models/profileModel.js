@@ -11,6 +11,10 @@ const profileSchema = mongoose.Schema(
       type: String,
       required: false,
     },
+    active: {
+      type: Boolean,
+      default: false
+    }
   },
   {
     timestamps: true,
