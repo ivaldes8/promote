@@ -7,11 +7,6 @@ const cvSchema = mongoose.Schema(
       required: [true, "Please add a user"],
       ref: "User",
     },
-    profile: {
-      type: mongoose.Schema.Types.ObjectId,
-      required: [true, "Please add at lease one profile image"],
-      ref: "Profile",
-    },
     template: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, "Please add at lease one template"],
@@ -21,37 +16,36 @@ const cvSchema = mongoose.Schema(
       type: Boolean,
       default: false
     },
+    profile: {
+      type: String,
+      required: [true, "Please add at lease one profile image"],
+    },
+    skills: [
+      {
+        type: String,
+        required: [true, "Please add at lease one skill"]
+      },
+    ],
     letters: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Letter",
+        type: String
       },
     ],
     infos: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Info",
+        type: String
       },
     ],
     degrees: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Degree",
+        type: String,
       },
     ],
     experiencies: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Experience",
+        type: String,
       },
-    ],
-    skills: [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        required: [true, "Please add at lease one skill"],
-        ref: "Skill",
-      },
-    ],
+    ]
   },
   {
     timestamps: true,
