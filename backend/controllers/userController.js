@@ -199,6 +199,7 @@ const updateUser = asyncHandler(async (req, res) => {
 const deleteUser = asyncHandler(async (req, res) => {
     const user = await User.findById(req.params.id);
 
+    await Skill.deleteMany({ user: req.params.id, static: false })
     await Profile.deleteMany({ user: req.params.id })
     await Experience.deleteMany({ user: req.params.id })
     await Degree.deleteMany({ user: req.params.id })

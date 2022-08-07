@@ -6,16 +6,16 @@ const templateSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add the name"],
     },
-  },
-  {
     code: {
       type: String,
-      required: [true, "Please add the code"],
+      required: [true, "Please add a code"],
+      unique: true,
     },
+
   },
   {
     timestamps: true,
   }
 );
 
-module.exports = mongoose.model("Template", templateSchema);
+module.exports = mongoose.model("Templates", templateSchema);

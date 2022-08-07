@@ -7,45 +7,50 @@ const cvSchema = mongoose.Schema(
       required: [true, "Please add a user"],
       ref: "User",
     },
+    name: {
+      type: String,
+      unique: [true, "This name is already taken"],
+      required: true
+    },
     template: {
       type: mongoose.Schema.Types.ObjectId,
       required: [true, "Please add at lease one template"],
       ref: "Template",
     },
-    active: {
-      type: Boolean,
-      default: false
-    },
     profile: {
-      type: String,
+      type: mongoose.Schema.Types.ObjectId,
       required: [true, "Please add at lease one profile image"],
     },
     skills: [
       {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
         required: [true, "Please add at lease one skill"]
       },
     ],
     letters: [
       {
-        type: String
+        type: mongoose.Schema.Types.ObjectId
       },
     ],
     infos: [
       {
-        type: String
+        type: mongoose.Schema.Types.ObjectId
       },
     ],
     degrees: [
       {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
       },
     ],
     experiencies: [
       {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
       },
-    ]
+    ],
+    active: {
+      type: Boolean,
+      default: false
+    },
   },
   {
     timestamps: true,
