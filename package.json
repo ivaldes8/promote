@@ -1,13 +1,14 @@
 {
   "name": "promote",
   "version": "1.0.0",
-  "description": "Your own investments portafolio in one please",
+  "description": "CV generator app",
   "main": "server.js",
   "scripts": {
+    "build": "quasar build -m pwa",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "client": "npm start --prefix frontend",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --force --prefix frontend && npm run build --prefix frontend"
+    "client": "cd frontend && quasar dev ",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend --no-shrinkwrap && npm run build --prefix frontend"
   },
   "repository": {
     "type": "git",
