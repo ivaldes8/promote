@@ -4,7 +4,7 @@
   "description": "CV generator app",
   "main": "server.js",
   "scripts": {
-    "build": "quasar build -m pwa",
+    "build": "npx quasar build -m  pwa",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
     "client": "cd frontend && quasar dev ",
