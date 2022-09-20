@@ -57,7 +57,7 @@ module.exports = configure(function (ctx) {
           : '/api/'
       },
 
-      vueRouterMode: 'history', // available values: 'hash', 'history'
+      vueRouterMode: 'hash', // available values: 'hash', 'history'
 
       // transpile: false,
       // publicPath: '/',
