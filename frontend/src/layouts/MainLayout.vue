@@ -172,8 +172,8 @@ export default defineComponent({
     watch(show, () => {
       if (show.value == true) {
         $q.notify({
-          message: status.value + ' ' + t(message.value),
-          caption: t(caption.value),
+          message: status.value + ' ' + message.value,
+          caption: caption.value,
           type: type.value,
           position: 'top-right',
           progress: true,
@@ -182,7 +182,7 @@ export default defineComponent({
             { icon: 'close', color: 'white', round: true }
           ]
         })
-        // hideMessage()
+        hideMessage()
       }
     })
 
