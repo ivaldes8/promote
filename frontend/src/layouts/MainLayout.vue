@@ -166,13 +166,14 @@ export default defineComponent({
     ]
 
     const store = useMessageStore()
-    const { message, type, show } = storeToRefs(store)
+    const { message, caption, status, type, show } = storeToRefs(store)
     const { hideMessage } = store
 
     watch(show, () => {
       if (show.value == true) {
         $q.notify({
-          message: t(message.value),
+          message: status.value + ' ' + t(message.value),
+          caption: t(caption.value),
           type: type.value,
           position: 'top-right',
           progress: true,
@@ -182,7 +183,6 @@ export default defineComponent({
           ]
         })
         hideMessage()
-
       }
     })
 
