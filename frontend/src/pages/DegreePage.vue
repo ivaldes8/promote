@@ -1,14 +1,20 @@
 <template>
-  <q-page class="flex flex-center">
+  <q-page >
     <h1>Degree</h1>
-    <img alt="Quasar logo" src="~assets/quasar-logo-vertical.svg" style="width: 200px; height: 200px">
+
+    <AdvancedInput/>
   </q-page>
 </template>
 
 <script>
-import { defineComponent } from 'vue'
+import AdvancedInput from 'src/components/AdvancedInput.vue';
 
-export default defineComponent({
-  name: 'DegreePage'
-})
+
+export default {
+    name: "DegreePage",
+    setup() {
+        return {};
+    },
+    components: { AdvancedInput }
+};
 </script>

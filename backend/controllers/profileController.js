@@ -3,22 +3,27 @@ const asyncHandler = require("express-async-handler");
 const Profile = require("../models/profileModel");
 
 const getProfile = asyncHandler(async (req, res) => {
-
-  const profile = await Profile.find({})
+  const profile = await Profile.find({});
 
   res.status(200).json({ profile });
 });
 
 const createProfile = asyncHandler(async (req, res) => {
-
   if (!req.body.img) {
     res.status(400);
     throw new Error("Please add a image");
   }
 
-  if(req.body.img.length > 250000) {
+  if (req.body.img.length > 250000) {
     res.status(400);
     throw new Error("The image must not weigh more than 250kb");
+  }
+
+  if (req.body.active) {
+    const aciveProfiles = await Profile.updateMany(
+      { active: true },
+      { active: false }
+    );
   }
   const profile = await Profile.create({
     user: req.user.id,
@@ -36,9 +41,20 @@ const updateProfile = asyncHandler(async (req, res) => {
     throw new Error("Profile picture not found");
   }
 
-  const updatedProfile = await Profile.findByIdAndUpdate(req.params.id, req.body, {
-    new: true,
-  })
+  if (req.body.active) {
+    const aciveProfiles = await Profile.updateMany(
+      { active: true },
+      { active: false }
+    );
+  }
+
+  const updatedProfile = await Profile.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    {
+      new: true,
+    }
+  );
 
   res.status(200).json(updatedProfile);
 });

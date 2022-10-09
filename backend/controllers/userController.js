@@ -41,6 +41,7 @@ const registerUser = asyncHandler(async (req, res) => {
         role,
         password: hashedPassword
     })
+    const image = await Profile.find({user: user.id, active: true})
 
     res.status(201).json({
         _id: user.id,
@@ -50,7 +51,8 @@ const registerUser = asyncHandler(async (req, res) => {
         address: user.address,
         email: user.email,
         role: user.role,
-        token: generateToken(user._id)
+        token: generateToken(user._id),
+        image
     })
 })
 
@@ -58,6 +60,7 @@ const loginUser = asyncHandler(async (req, res) => {
     const { email, password } = req.body
 
     const user = await User.findOne({ email })
+
     if (user && (await bcrypt.compare(password, user.password))) {
         res.json({
             _id: user.id,
@@ -77,12 +80,27 @@ const loginUser = asyncHandler(async (req, res) => {
 
 const getMe = asyncHandler(async (req, res) => {
     const email = req.user.email
+
     const user = await User.findOne({ email })
+
     if (!user) {
         res.status(400)
         throw new Error('User not found')
     }
-    res.status(200).json(user)
+
+    const image = await Profile.find({user: user._id, active: true})
+
+    const profile = {
+        name: user.name,
+        lastName: user.name,
+        email: user.email,
+        phone: user.phone,
+        address: user.address,
+        role: user.role,
+        image: image
+    }
+
+    res.status(200).json(profile)
 })
 
 const updateCurrentUser = asyncHandler(async (req, res) => {

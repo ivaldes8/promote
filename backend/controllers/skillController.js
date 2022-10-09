@@ -87,7 +87,7 @@ const deleteSkill = asyncHandler(async (req, res) => {
     throw new Error("Skills can only be deleted by the user who create them and for the administrator");
   }
 
-  // await skill.remove();
+  await skill.remove();
   res.status(200).json({ id: req.params.id });
 });
 
