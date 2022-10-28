@@ -6,6 +6,10 @@ const templateSchema = mongoose.Schema(
       type: String,
       required: [true, "Please add the name"],
     },
+    img: {
+      type: String,
+      required: false,
+    },
     code: {
       type: String,
       required: [true, "Please add a code"],

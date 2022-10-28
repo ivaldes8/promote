@@ -21,9 +21,15 @@ const createTemplate = asyncHandler(async (req, res) => {
     throw new Error("Please add a code");
   }
 
+  if (req.body.img && req.body.img.length > 250000) {
+    res.status(400);
+    throw new Error("The image must not weigh more than 250kb");
+  }
+
   const template = await Template.create({
     name: req.body.name,
-    code: req.body.code
+    code: req.body.code,
+    img: req.body.img
   });
 
   res.status(200).json({ template });
@@ -34,6 +40,11 @@ const updateTemplate = asyncHandler(async (req, res) => {
   if (!template) {
     res.status(400);
     throw new Error("Template not found");
+  }
+
+  if (req.body.img && req.body.img.length > 250000) {
+    res.status(400);
+    throw new Error("The image must not weigh more than 250kb");
   }
 
   const updatedTemplate = await Template.findByIdAndUpdate(req.params.id, req.body, {

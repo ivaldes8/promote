@@ -41,6 +41,11 @@ const updateProfile = asyncHandler(async (req, res) => {
     throw new Error("Profile picture not found");
   }
 
+  if (req.body.img.length > 250000) {
+    res.status(400);
+    throw new Error("The image must not weigh more than 250kb");
+  }
+
   if (req.body.active) {
     const aciveProfiles = await Profile.updateMany(
       { active: true },
