@@ -49,9 +49,17 @@ const cvSchema = mongoose.Schema(
         type: String,
       },
     ],
-    active: {
-      type: Boolean,
-      default: false,
+    headerColor: {
+      type: String,
+      default: "#f0f8ff",
+    },
+    primaryColor: {
+      type: String,
+      default: "#2196f3",
+    },
+    secundaryColor: {
+      type: String,
+      default: "#b4b3b3",
     },
   },
   {

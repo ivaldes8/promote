@@ -92,5 +92,8 @@ export default {
   aboutMe: 'About me',
   education: 'Education',
   proficence: 'Proficence',
-  updateProficence: 'Update proficence'
+  updateProficence: 'Update proficence',
+  headerColor: 'Header color',
+  primaryColor: 'Primary color',
+  secundaryColor: 'Secundary color'
 }

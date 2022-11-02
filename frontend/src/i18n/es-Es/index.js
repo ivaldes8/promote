@@ -92,5 +92,8 @@ export default {
   aboutMe: 'Acerca de mi',
   education: 'Educación',
   proficence: 'Pericia',
-  updateProficence: 'Editar pericia'
+  updateProficence: 'Editar pericia',
+  headerColor: 'Color de cabecera',
+  primaryColor: 'Color primario',
+  secundaryColor: 'Color secundario'
 }

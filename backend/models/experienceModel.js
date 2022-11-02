@@ -7,6 +7,15 @@ const experienceSchema = mongoose.Schema(
       required: [true, "Please add a user"],
       ref: "User",
     },
+    placeName: {
+      type: String,
+    },
+    placeDescEn: {
+      type: String,
+    },
+    placeDescEs: {
+      type: String,
+    },
     nameEs: {
       type: String,
       required: [true, "Please add a name"],

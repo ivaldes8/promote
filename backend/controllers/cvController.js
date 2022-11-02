@@ -3,21 +3,18 @@ const asyncHandler = require("express-async-handler");
 const CV = require("../models/cvModel");
 
 const getCV = asyncHandler(async (req, res) => {
+  const cv = await CV.find({ user: req.user.id });
 
-  const cv = await CV.find({user: req.user.id})
-  
   res.status(200).json({ cv });
 });
 
 const getPublicCV = asyncHandler(async (req, res) => {
+  const cv = await CV.find({ active: true });
 
-  const cv = await CV.find({active: true})
-  
   res.status(200).json({ cv });
 });
 
 const createCV = asyncHandler(async (req, res) => {
-
   if (!req.body.profile) {
     res.status(400);
     throw new Error("Please select a profile picture");
@@ -28,12 +25,12 @@ const createCV = asyncHandler(async (req, res) => {
     throw new Error("Please select a template");
   }
 
-  if(!req.body.name) {
+  if (!req.body.name) {
     res.status(400);
     throw new Error("Please add a name");
   }
 
-  if(!req.body.skills) {
+  if (!req.body.skills) {
     res.status(400);
     throw new Error("Please select at lease one skill");
   }
@@ -50,6 +47,9 @@ const createCV = asyncHandler(async (req, res) => {
     degrees: req.body.degrees,
     experiencies: req.body.experiencies,
     letters: req.body.letters,
+    headerColor: req.body.headerColor,
+    primaryColor: req.body.primaryColor,
+    secundaryColor: req.body.secundaryColor,
   });
 
   res.status(200).json({ cv });
@@ -64,7 +64,7 @@ const updateCV = asyncHandler(async (req, res) => {
 
   const updatedCV = await CV.findByIdAndUpdate(req.params.id, req.body, {
     new: true,
-  })
+  });
 
   res.status(200).json(updatedCV);
 });
