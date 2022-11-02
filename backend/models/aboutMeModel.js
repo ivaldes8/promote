@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const skillSchema = mongoose.Schema(
+const aboutSchema = mongoose.Schema(
   {
     user: {
       type: mongoose.Schema.Types.ObjectId,
@@ -9,12 +9,10 @@ const skillSchema = mongoose.Schema(
     },
     descEn: {
       type: String,
-      unique: true,
       required: [true, "Please add a desc"],
     },
     descEs: {
       type: String,
-      unique: true,
       required: [true, "Please add a desc"],
     },
   },
@@ -23,4 +21,4 @@ const skillSchema = mongoose.Schema(
   }
 );
 
-module.exports = mongoose.model("Skill", skillSchema);
+module.exports = mongoose.model("AboutMe", aboutSchema);

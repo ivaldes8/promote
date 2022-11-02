@@ -1,7 +1,6 @@
 const asyncHandler = require("express-async-handler");
 
 const Skill = require("../models/skillModel");
-const CV = require("../models/cvModel");
 
 const getSkills = asyncHandler(async (req, res) => {
   const skill = await Skill.find({ user: req.user.id }, { user: 0 });
@@ -47,12 +46,6 @@ const updateSkill = asyncHandler(async (req, res) => {
 
 const deleteSkill = asyncHandler(async (req, res) => {
   const skill = await Skill.findById(req.params.id);
-  const cv = await CV.find({ skills: skill._id });
-
-  if (cv.length > 0) {
-    res.status(400);
-    throw new Error("Cannot delete a skill because has Cvs associated");
-  }
 
   if (!skill) {
     res.status(400);
