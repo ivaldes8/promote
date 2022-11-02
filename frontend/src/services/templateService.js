@@ -1,8 +1,8 @@
 import { api } from "src/boot/axios";
 
-const API_URL = "skill/";
+const API_URL = "template/";
 
-const getSkills = async (token) => {
+const getTemplates = async (token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -14,7 +14,7 @@ const getSkills = async (token) => {
   return response;
 };
 
-const postSkill = async (token, data) => {
+const postTemplate = async (token, data) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -26,7 +26,7 @@ const postSkill = async (token, data) => {
   return response;
 };
 
-const updateSkill = async (token, id, data) => {
+const updateTemplate = async (token, id, data) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ const updateSkill = async (token, id, data) => {
   return response;
 };
 
-const delSkill = async (token, id) => {
+const delTemplate = async (token, id) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -51,11 +51,11 @@ const delSkill = async (token, id) => {
 };
 
 
-const skillService = {
-  getSkills,
-  postSkill,
-  updateSkill,
-  delSkill
+const templateService = {
+  getTemplates,
+  postTemplate,
+  updateTemplate,
+  delTemplate
 };
 
-export default skillService;
+export default templateService;

@@ -107,7 +107,6 @@
           v-model="language"
           stack-label
           :options="localeOptions"
-          style="width: 90%"
         >
           <template v-slot:selected>
             <q-chip
@@ -200,6 +199,12 @@ const linksList = [
     caption: "lettersCaption",
     icon: "mark_as_unread",
     to: "/letters",
+  },
+  {
+    title: "templates",
+    caption: "templatesCaption",
+    icon: "backup_table",
+    to: "/templates",
   },
 ];
 

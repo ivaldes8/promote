@@ -92,7 +92,7 @@ const getMe = asyncHandler(async (req, res) => {
 
     const profile = {
         name: user.name,
-        lastName: user.name,
+        lastName: user.lastName,
         email: user.email,
         phone: user.phone,
         address: user.address,

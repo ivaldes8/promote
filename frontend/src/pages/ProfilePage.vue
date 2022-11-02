@@ -111,7 +111,6 @@
 
 <script>
 import { onMounted, ref } from "vue";
-import { useQuasar } from "quasar";
 import { storeToRefs } from "pinia";
 import { useProfileStore } from "src/stores/profile-store";
 import DataTableVue from "src/components/DataTable.vue";

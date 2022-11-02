@@ -14,6 +14,7 @@
     />
 
     <ModalVue
+      form
       v-show="modalVisible"
       :showDialog="modalVisible"
       title="addSkill"
@@ -21,15 +22,13 @@
       @submit="onAddSkill"
     >
       <template v-slot:content>
-        <q-form @submit="onAddSkill" class="q-gutter-md">
-          <q-input
-            filled
-            v-model="form.name"
-            :label="$t('skill')"
-            lazy-rules
-            :rules="[(val) => (val && val.length > 0) || $t('required')]"
-          />
-        </q-form>
+        <q-input
+          filled
+          v-model="form.name"
+          :label="$t('skill')"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || $t('required')]"
+        />
       </template>
     </ModalVue>
 
@@ -45,7 +44,6 @@
 
 <script>
 import { onMounted, ref } from "vue";
-import { useQuasar } from "quasar";
 import { storeToRefs } from "pinia";
 import { useSkillStore } from "../stores/skill-store";
 import DataTableVue from "src/components/DataTable.vue";
@@ -76,6 +74,15 @@ export default {
         updateText: "updateSkill",
       },
       {
+        name: "value",
+        label: "proficence",
+        field: "value",
+        type: "text",
+        rating: true,
+        sortable: false,
+        updateText: "updateProficence",
+      },
+      {
         name: "actions",
         label: "actions",
         align: "center",
@@ -96,7 +103,7 @@ export default {
       } else {
         const toSend = {
           name: form.value.name,
-          static: false,
+          value: form.value.value,
         };
         await createSkill(toSend);
       }
@@ -116,8 +123,16 @@ export default {
       alertVisible.value = false;
     };
 
-
-    return { skills,skillColumns, onAddSkill, handleDeleteSkill, submitDelSkill, alertVisible, modalVisible, form };
+    return {
+      skills,
+      skillColumns,
+      onAddSkill,
+      handleDeleteSkill,
+      submitDelSkill,
+      alertVisible,
+      modalVisible,
+      form,
+    };
   },
 };
 </script>

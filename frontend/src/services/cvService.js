@@ -1,20 +1,20 @@
 import { api } from "src/boot/axios";
 
-const API_URL = "skill/";
+const API_URL = "cv/";
 
-const getSkills = async (token) => {
+const getCvs = async (token) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
     },
   };
 
-  const response = await api.get(API_URL, config);
+  const response = await api.get(`${API_URL}all`, config);
 
   return response;
 };
 
-const postSkill = async (token, data) => {
+const postCv = async (token, data) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -26,7 +26,7 @@ const postSkill = async (token, data) => {
   return response;
 };
 
-const updateSkill = async (token, id, data) => {
+const updateCv = async (token, id, data) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -38,7 +38,7 @@ const updateSkill = async (token, id, data) => {
   return response;
 };
 
-const delSkill = async (token, id) => {
+const delCv = async (token, id) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -51,11 +51,11 @@ const delSkill = async (token, id) => {
 };
 
 
-const skillService = {
-  getSkills,
-  postSkill,
-  updateSkill,
-  delSkill
+const cvService = {
+  getCvs,
+  postCv,
+  updateCv,
+  delCv
 };
 
-export default skillService;
+export default cvService;

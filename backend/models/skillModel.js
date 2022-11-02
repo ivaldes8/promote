@@ -12,9 +12,9 @@ const skillSchema = mongoose.Schema(
       unique: true,
       required: [true, "Please add a name"],
     },
-    static: {
-      type: Boolean,
-      default: false
+    value: {
+      type: Number,
+      default: 0
     }
   },
   {

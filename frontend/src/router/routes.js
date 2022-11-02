@@ -45,6 +45,11 @@ const routes = [
         name: "Letter",
         component: () => import("pages/LettersPage.vue"),
       },
+      {
+        path: "/templates",
+        name: "Templates",
+        component: () => import("pages/templatesPage/Dashboard.vue"),
+      },
     ],
   },
 

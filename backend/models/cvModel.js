@@ -10,46 +10,48 @@ const cvSchema = mongoose.Schema(
     name: {
       type: String,
       unique: [true, "This name is already taken"],
-      required: true
+      required: true,
     },
     template: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: [true, "Please add at lease one template"],
-      ref: "Template",
     },
     profile: {
-      type: mongoose.Schema.Types.ObjectId,
+      type: String,
       required: [true, "Please add at lease one profile image"],
     },
     skills: [
       {
-        type: mongoose.Schema.Types.ObjectId,
-        required: [true, "Please add at lease one skill"]
+        name: {
+          type: String,
+          required: [true, "Please add a name"],
+        },
+        value: { type: Number },
       },
     ],
     letters: [
       {
-        type: mongoose.Schema.Types.ObjectId
+        type: String,
       },
     ],
     infos: [
       {
-        type: mongoose.Schema.Types.ObjectId
+        type: String,
       },
     ],
     degrees: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
       },
     ],
     experiencies: [
       {
-        type: mongoose.Schema.Types.ObjectId,
+        type: String,
       },
     ],
     active: {
       type: Boolean,
-      default: false
+      default: false,
     },
   },
   {

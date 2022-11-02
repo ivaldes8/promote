@@ -55,7 +55,23 @@
       <template v-slot:body="props">
         <q-tr :props="props">
           <q-td :props="props" :key="c.name" v-for="c in columns">
-            {{ c.badged || c.image || c.switch ? "" : props.row[c.name] }}
+            {{
+              c.badged || c.image || c.switch || c.multiple || c.rating
+                ? ""
+                : props.row[c.name]
+            }}
+
+            <div v-if="c.multiple">
+              <div v-for="text in props.row[c.name]" :key="text">
+                <q-badge
+                  :color="c.badgeColor ? c.badgeColor : 'green'"
+                  style="margin-left: 5px"
+                >
+                  {{ text[`${c.multipleKey}`] }} {{ c.multipleKey2 ? '- ' + text[`${c.multipleKey2}`] : '' }}
+                  <q-icon v-if="c.multipleStar" name="star" color="yellow" />
+                </q-badge>
+              </div>
+            </div>
 
             <q-badge
               :color="c.badgeColor ? c.badgeColor : 'green'"
@@ -63,6 +79,12 @@
             >
               {{ props.row[c.name] }}
             </q-badge>
+
+            <div
+              v-if="c.name !== 'actions' && c.rating"
+            >
+              {{ props.row[c.name] }} <q-icon name="star" color="yellow" size="md"/>
+            </div>
 
             <q-avatar
               v-if="c.image"
@@ -103,7 +125,7 @@
               "
             >
               <q-input
-                v-if="!c.image && !c.select && !c.switch"
+                v-if="!c.image && !c.select && !c.switch && !c.rating"
                 :type="c.type"
                 v-model="scope.value"
                 :error="error"
@@ -112,6 +134,17 @@
                 filled
                 dense
                 autofocus
+              />
+
+              <q-rating
+                v-if="c.rating"
+                v-model="scope.value"
+                max="5"
+                size="3.5em"
+                color="yellow"
+                icon="star_border"
+                icon-selected="star"
+                no-dimming
               />
 
               <q-toggle
@@ -128,19 +161,59 @@
                 v-if="c.select"
                 filled
                 clearable
+                :multiple="c.multipleSelect ? c.multipleSelect : false"
                 v-model="scope.value"
-                :options="options"
-                option-value="id"
-                option-label="desc"
-                emit-value
+                :options="c.options"
+                :option-value="c.optionValue ? c.optionValue : '_id'"
+                :option-label="c.optionLabel ? c.optionLabel : 'name'"
+                :emit-value = "c.emitValue == false ? false : true"
                 map-options
                 style="min-width: 250px; max-width: 300px"
                 :error="error"
                 :error-message="$t(errorMessage)"
-              />
+              >
+                <template v-slot:selected-item="scope" v-if="c.customSelected">
+                  <q-avatar size="80px" style="margin-left: 45%">
+                    <img
+                      :src="
+                        scope.opt[`${c.customSelectedKey}`]
+                          ? scope.opt[`${c.customSelectedKey}`]
+                          : 'logoOficial.png'
+                      "
+                    />
+                  </q-avatar>
+                </template>
+                <template v-slot:option="scope" v-if="c.customOptions">
+                  <q-item v-bind="scope.itemProps">
+                    <q-item-section avatar v-if="c.optionImage">
+                      <q-avatar>
+                        <img
+                          :src="
+                            scope.opt[`${c.optionImageKey}`]
+                              ? scope.opt[`${c.optionImageKey}`]
+                              : 'logoOficial.png'
+                          "
+                        />
+                      </q-avatar>
+                    </q-item-section>
+                    <q-item-section>
+                      <q-item-label v-if="c.optionText">{{
+                        scope.opt[`${c.optionTextKey}`]
+                          ? scope.opt[`${c.optionTextKey}`]
+                          : scope.opt.code
+                      }}</q-item-label>
+                      <q-item-label caption v-if="c.optionCaption">{{
+                        scope.opt[`${c.optionCaptionKey}`]
+                          ? scope.opt[`${c.optionCaptionKey}`]
+                          : scope.opt.name
+                      }}</q-item-label>
+                    </q-item-section>
+                  </q-item>
+                </template>
+              </q-select>
 
               <q-file
-                v-if="c.image"
+                v-if="c.image && !c.select"
                 clearable
                 bottom-slots
                 :label="$t('selectImage')"
@@ -176,6 +249,17 @@
               dense
               @click="editval(props.row)"
             />
+            <q-btn
+              v-if="c.name === 'actions' && downloadble"
+              class="q-ml-sm glossy"
+              rounded
+              outline
+              color="primary"
+              icon-right="download"
+              no-caps
+              dense
+              @click="$emit('download', props.row)"
+            />
           </q-td>
         </q-tr>
       </template>
@@ -209,6 +293,10 @@ export default {
       type: Boolean,
       default: false,
     },
+    downloadble: {
+      type: Boolean,
+      default: false,
+    },
     coolEdit: {
       type: Boolean,
       default: false,
@@ -221,6 +309,10 @@ export default {
       type: String,
       default: "",
     },
+    hasSkills: {
+      type: Boolean,
+      default: false,
+    },
     rows: Array,
     columns: Array,
   },
@@ -231,7 +323,7 @@ export default {
 
     const save = async (key, val, row) => {
       let toSend = {};
-      if (typeof val === "object") {
+      if (typeof val === "object" && !props.hasSkills) {
         await getBase64(val).then((data) => {
           file.value = data;
         });
@@ -244,7 +336,6 @@ export default {
           [key]: val,
         };
       }
-
       emit("update", { _id: row._id, row: toSend });
     };
 
@@ -324,28 +415,6 @@ export default {
       isValidEmail,
       save,
       hide,
-      options: [
-        {
-          id: "goog",
-          desc: "Google",
-        },
-        {
-          id: "fb",
-          desc: "Facebook",
-        },
-        {
-          id: "twt",
-          desc: "Twitter",
-        },
-        {
-          id: "app",
-          desc: "Apple",
-        },
-        {
-          id: "ora",
-          desc: "Oracle",
-        },
-      ],
     };
   },
 };
