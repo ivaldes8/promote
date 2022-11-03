@@ -14,13 +14,13 @@ const createProject = asyncHandler(async (req, res) => {
     throw new Error("Please add a name");
   }
 
-  const exp = await Project.create({
+  const project = await Project.create({
     user: req.user.id,
     name: req.body.name,
     desc: req.body.desc,
   });
 
-  res.status(200).json({ exp });
+  res.status(200).json({ project });
 });
 
 const updateProject = asyncHandler(async (req, res) => {

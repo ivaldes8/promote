@@ -40,6 +40,17 @@ const cvSchema = mongoose.Schema(
         }
       },
     ],
+    language: [
+      {
+        name: {
+          type: String,
+          required: [true, "Please add a name"],
+        },
+        desc: {
+          type: String
+        }
+      },
+    ],
     letters: [
       {
         type: String,
