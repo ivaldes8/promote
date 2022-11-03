@@ -36,8 +36,8 @@ const cvSchema = mongoose.Schema(
           required: [true, "Please add a name"],
         },
         desc: {
-          type: String
-        }
+          type: String,
+        },
       },
     ],
     language: [
@@ -47,8 +47,19 @@ const cvSchema = mongoose.Schema(
           required: [true, "Please add a name"],
         },
         desc: {
-          type: String
-        }
+          type: String,
+        },
+      },
+    ],
+    degree: [
+      {
+        name: {
+          type: String,
+          required: [true, "Please add a name"],
+        },
+        desc: {
+          type: String,
+        },
       },
     ],
     letters: [
@@ -57,11 +68,6 @@ const cvSchema = mongoose.Schema(
       },
     ],
     infos: [
-      {
-        type: String,
-      },
-    ],
-    degrees: [
       {
         type: String,
       },

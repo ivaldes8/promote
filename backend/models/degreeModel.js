@@ -7,20 +7,16 @@ const degreeSchema = mongoose.Schema(
       required: [true, "Please add a user"],
       ref: "User",
     },
-    nameEs: {
+    name: {
       type: String,
       required: [true, "Please add a name"],
     },
-    descriptionEs: {
+    desc: {
       type: String,
     },
-    nameEn: {
+    url: {
       type: String,
-      required: [true, "Please add a name"],
     },
-    descriptionEn: {
-      type: String,
-    }
   },
   {
     timestamps: true,
