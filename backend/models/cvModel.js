@@ -62,9 +62,15 @@ const cvSchema = mongoose.Schema(
         },
       },
     ],
-    letters: [
+    letter: [
       {
-        type: String,
+        name: {
+          type: String,
+          required: [true, "Please add a name"],
+        },
+        desc: {
+          type: String,
+        },
       },
     ],
     infos: [
