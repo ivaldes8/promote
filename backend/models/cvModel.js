@@ -29,6 +29,17 @@ const cvSchema = mongoose.Schema(
         value: { type: Number },
       },
     ],
+    experience: [
+      {
+        name: {
+          type: String,
+          required: [true, "Please add a name"],
+        },
+        desc: {
+          type: String
+        }
+      },
+    ],
     letters: [
       {
         type: String,
@@ -40,11 +51,6 @@ const cvSchema = mongoose.Schema(
       },
     ],
     degrees: [
-      {
-        type: String,
-      },
-    ],
-    experiencies: [
       {
         type: String,
       },

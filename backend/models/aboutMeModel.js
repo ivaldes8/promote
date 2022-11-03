@@ -7,14 +7,10 @@ const aboutSchema = mongoose.Schema(
       required: [true, "Please add a user"],
       ref: "User",
     },
-    descEn: {
+    desc: {
       type: String,
       required: [true, "Please add a desc"],
-    },
-    descEs: {
-      type: String,
-      required: [true, "Please add a desc"],
-    },
+    }
   },
   {
     timestamps: true,

@@ -9,20 +9,14 @@ const getAboutMes = asyncHandler(async (req, res) => {
 });
 
 const createAboutMe = asyncHandler(async (req, res) => {
-  if (!req.body.descEn) {
+  if (!req.body.desc) {
     res.status(400);
-    throw new Error("Please add a Desc En");
-  }
-
-  if (!req.body.descEs) {
-    res.status(400);
-    throw new Error("Please add a Desc Es");
+    throw new Error("Please add a Desc");
   }
 
   const about = await AboutMe.create({
     user: req.user.id,
-    descEn: req.body.descEn,
-    descEs: req.body.descEs
+    desc: req.body.desc
   });
 
   res.status(200).json({ about });
