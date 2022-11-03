@@ -7,20 +7,16 @@ const infoSchema = mongoose.Schema(
       required: [true, "Please add a user"],
       ref: "User",
     },
-    titleEs: {
+    name: {
       type: String,
-      required: [true, "Please add a title"],
+      required: [true, "Please add a name"],
     },
-    descriptionEs: {
+    desc: {
       type: String,
     },
-    titleEn: {
+    url: {
       type: String,
-      required: [true, "Please add a title"],
     },
-    descriptionEn: {
-      type: String,
-    }
   },
   {
     timestamps: true,

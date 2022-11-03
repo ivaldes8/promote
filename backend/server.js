@@ -22,6 +22,7 @@ app.use("/api/project", require("./routes/projectRoutes"));
 app.use("/api/lang", require("./routes/languageRoutes"));
 app.use("/api/degree", require("./routes/degreeRoutes"));
 app.use("/api/letter", require("./routes/letterRoutes"));
+app.use("/api/info", require("./routes/infoRoutes"));
 app.use("/api/template", require("./routes/templateRoutes"));
 app.use("/api/cv", require("./routes/cvRoutes"));
 app.use("/api/home", require("./routes/homeRoutes"));

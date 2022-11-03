@@ -40,16 +40,17 @@ const createCV = asyncHandler(async (req, res) => {
     name: req.body.name,
     profile: req.body.profile,
     template: req.body.template,
-    active: req.body.active,
     skills: req.body.skills,
-    letters: req.body.letters,
-    infos: req.body.infos,
-    degrees: req.body.degrees,
-    experiencies: req.body.experiencies,
-    letters: req.body.letters,
+    about: req.body.about,
+    experience: req.body.experience,
+    project: req.body.project,
+    language: req.body.language,
+    degree: req.body.degree,
+    letter: req.body.letter,
+    info: req.body.info,
     headerColor: req.body.headerColor,
     primaryColor: req.body.primaryColor,
-    secundaryColor: req.body.secundaryColor,
+    secundaryColor: req.body.secundaryColor
   });
 
   res.status(200).json({ cv });
