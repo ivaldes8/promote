@@ -95,5 +95,8 @@ export default {
   updateProficence: 'Editar pericia',
   headerColor: 'Color de cabecera',
   primaryColor: 'Color primario',
-  secundaryColor: 'Color secundario'
+  secundaryColor: 'Color secundario',
+  updateHeaderColor: 'Editar color de cabecera',
+  updatePrimaryColor: 'Editar color primary',
+  updateSecundaryColor: 'Editar color secundario'
 }

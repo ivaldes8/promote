@@ -95,5 +95,8 @@ export default {
   updateProficence: 'Update proficence',
   headerColor: 'Header color',
   primaryColor: 'Primary color',
-  secundaryColor: 'Secundary color'
+  secundaryColor: 'Secundary color',
+  updateHeaderColor: 'Update header color',
+  updatePrimaryColor: 'Update primary color',
+  updateSecundaryColor: 'Update secundary color'
 }

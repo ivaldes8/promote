@@ -2,7 +2,7 @@
   <q-page backtop="24mm" backbottom="20mm">
     <div ref="document">
       <div class="row">
-        <div class="col-12 header">
+        <div class="col-12 header" :style="{backgroundColor: `${data && data.headerColor ? data.headerColor : ''}`}">
           <div class="row">
             <h3
               class="headerText ml-5"
@@ -45,7 +45,8 @@
         </div>
 
         <div class="col-7">
-          <h6 class="contentHeaderPrimary ml-2">
+          <h6 class="contentHeaderPrimary ml-2" :style="{backgroundColor: `${data && data.primaryColor ? data.primaryColor : ''}`}">
+            <span :style="{borderTop: '10px solid' + `${data && data.primaryColor ? data.primaryColor : ''}`}"></span>
             <q-icon name="person" size="sm" />
             {{ $t("aboutMe") }}:
           </h6>
@@ -59,7 +60,8 @@
           </p>
         </div>
         <div class="col-5" v-if="data && data.skills && data.skills.length > 0">
-          <h6 class="contentHeaderSecundary ml-2">
+          <h6 class="contentHeaderSecundary ml-2" :style="{backgroundColor: `${data && data.secundaryColor ? data.secundaryColor : ''}`}">
+            <span :style="{borderTop: '10px solid' + `${data && data.secundaryColor ? data.secundaryColor : ''}`}"></span>
             <q-icon name="history_edu" size="sm" />
             {{ $t("skills") }}:
           </h6>
@@ -71,7 +73,7 @@
                   v-model="skill.value"
                   max="5"
                   size="2.0em"
-                  color="blue"
+                  :style="{color: data && data.primaryColor ? data.primaryColor : ''}"
                   icon="star_border"
                   icon-selected="star"
                   no-dimming
@@ -82,7 +84,8 @@
         </div>
 
         <div class="col-7">
-          <h6 class="contentHeaderPrimary ml-2">
+          <h6 class="contentHeaderPrimary ml-2" :style="{backgroundColor: `${data && data.primaryColor ? data.primaryColor : ''}`}">
+            <span :style="{borderTop: '10px solid' + `${data && data.primaryColor ? data.primaryColor : ''}`}"></span>
             <q-icon name="work" size="sm" />
             {{ $t("experience") }}:
           </h6>
@@ -152,7 +155,8 @@
           </div>
         </div>
         <div class="col-5">
-          <h6 class="contentHeaderSecundary ml-2">
+          <h6 class="contentHeaderSecundary ml-2" :style="{backgroundColor: `${data && data.secundaryColor ? data.secundaryColor : ''}`}">
+            <span :style="{borderTop: '10px solid' + `${data && data.secundaryColor ? data.secundaryColor : ''}`}"></span>
             <q-icon name="school" size="sm" />
             {{ $t("education") }}:
           </h6>
@@ -175,7 +179,8 @@
             </p>
           </div>
 
-          <h6 class="contentHeaderSecundary ml-2 mt-3">
+          <h6 class="contentHeaderSecundary ml-2 mt-3" :style="{backgroundColor: `${data && data.secundaryColor ? data.secundaryColor : ''}`}">
+            <span :style="{borderTop: '10px solid' + `${data && data.secundaryColor ? data.secundaryColor : ''}`}"></span>
             <q-icon name="language" size="sm" />
             {{ $t("language") }}:
           </h6>
@@ -192,7 +197,8 @@
             <p class="subHeaderSecundary">C1</p>
           </div>
 
-          <h6 class="contentHeaderSecundary ml-2 mt-3">
+          <h6 class="contentHeaderSecundary ml-2 mt-3" :style="{backgroundColor: `${data && data.secundaryColor ? data.secundaryColor : ''}`}">
+            <span :style="{borderTop: '10px solid' + `${data && data.secundaryColor ? data.secundaryColor : ''}`}"></span>
             <q-icon name="info" size="sm" />
             {{ $t("extraInfo") }}:
           </h6>
@@ -222,12 +228,14 @@ export default {
   data() {
     return {
       data: null,
+      colory:'#c536be'
     };
   },
 
   watch: {
     cvData() {
       this.data = this.cvData;
+      console.log(this.data, 'DATA')
       if (this.data) {
         html2pdf(this.$refs.document, {
           margin: 0,
@@ -261,9 +269,12 @@ export default {
 };
 </script>
 <style scoped>
+p {
+  color: black;
+}
 .header {
-  background-color: aliceblue;
   border-radius: 10px;
+  color: black;
 }
 .headerText {
   font-size: 250%;
@@ -271,61 +282,38 @@ export default {
   margin-bottom: 15px;
   margin-left: 10px;
   font-weight: 500;
+  color: black;
 }
 
 .subHeaderText {
   margin-top: 0px;
   margin-bottom: 0px;
   font-weight: 500;
+  color: black;
 }
 
 .subHeaderSecundary {
   margin-bottom: 0px;
   margin-left: 5px;
+  color: black;
 }
 
 .contentHeaderPrimary {
   margin: 5px;
   border: 1px solid;
   border-radius: 10px;
-  background-color: rgb(65, 125, 236);
   color: white;
   padding-left: 5px;
   position: relative;
-}
-
-.contentHeaderPrimary:after {
-  content: "";
-  border-color: rgb(65, 125, 236) transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  width: 0;
-  height: 0;
-  position: absolute;
-  bottom: -20px;
-  left: 20px;
 }
 
 .contentHeaderSecundary {
   margin: 5px;
   border: 1px solid;
   border-radius: 10px;
-  background-color: rgb(180, 179, 179);
   color: white;
   padding-left: 5px;
   position: relative;
-}
-
-.contentHeaderSecundary:after {
-  content: "";
-  border-color: rgb(180, 179, 179) transparent transparent transparent;
-  border-style: solid;
-  border-width: 10px;
-  width: 0;
-  height: 0;
-  position: absolute;
-  bottom: -20px;
-  right: 20px;
 }
 
 .image {
@@ -361,5 +349,13 @@ export default {
 
 .stars {
   margin-top: -5px;
+}
+
+span {
+    border-right: 10px solid transparent;
+    border-left: 10px solid transparent;
+    position: absolute;
+    bottom: -10px;
+    left: 20px;
 }
 </style>

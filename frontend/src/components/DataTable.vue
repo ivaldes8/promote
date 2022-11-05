@@ -56,7 +56,7 @@
         <q-tr :props="props">
           <q-td :props="props" :key="c.name" v-for="c in columns">
             {{
-              c.badged || c.image || c.switch || c.multiple || c.rating
+              c.badged || c.image || c.switch || c.multiple || c.rating || c.colorPicker
                 ? ""
                 : props.row[c.name]
             }}
@@ -67,11 +67,19 @@
                   :color="c.badgeColor ? c.badgeColor : 'green'"
                   style="margin-left: 5px"
                 >
-                  {{ text[`${c.multipleKey}`] }} {{ c.multipleKey2 ? '- ' + text[`${c.multipleKey2}`] : '' }}
+                  {{ text[`${c.multipleKey}`] }}
+                  {{ c.multipleKey2 ? "- " + text[`${c.multipleKey2}`] : "" }}
                   <q-icon v-if="c.multipleStar" name="star" color="yellow" />
                 </q-badge>
               </div>
             </div>
+
+            <q-badge
+              :style="{backgroundColor: `${props.row[c.name] ? props.row[c.name] : 'blue'}`}"
+              v-if="c.name !== 'actions' && c.colorPicker"
+            >
+              {{ props.row[c.name] }}
+            </q-badge>
 
             <q-badge
               :color="c.badgeColor ? c.badgeColor : 'green'"
@@ -80,10 +88,9 @@
               {{ props.row[c.name] }}
             </q-badge>
 
-            <div
-              v-if="c.name !== 'actions' && c.rating"
-            >
-              {{ props.row[c.name] }} <q-icon name="star" color="yellow" size="md"/>
+            <div v-if="c.name !== 'actions' && c.rating">
+              {{ props.row[c.name] }}
+              <q-icon name="star" color="yellow" size="md" />
             </div>
 
             <q-avatar
@@ -125,7 +132,13 @@
               "
             >
               <q-input
-                v-if="!c.image && !c.select && !c.switch && !c.rating"
+                v-if="
+                  !c.image &&
+                  !c.select &&
+                  !c.switch &&
+                  !c.rating &&
+                  !c.colorPicker
+                "
                 :type="c.type"
                 v-model="scope.value"
                 :error="error"
@@ -135,6 +148,30 @@
                 dense
                 autofocus
               />
+
+              <q-input
+                v-if="c.colorPicker"
+                :type="c.type"
+                v-model="scope.value"
+                :error="error"
+                :error-message="$t(errorMessage)"
+                persistent
+                filled
+                dense
+                autofocus
+              >
+                <template v-slot:append>
+                  <q-icon name="colorize" class="cursor-pointer">
+                    <q-popup-proxy
+                      cover
+                      transition-show="scale"
+                      transition-hide="scale"
+                    >
+                      <q-color v-model="scope.value" />
+                    </q-popup-proxy>
+                  </q-icon>
+                </template>
+              </q-input>
 
               <q-rating
                 v-if="c.rating"
@@ -166,7 +203,7 @@
                 :options="c.options"
                 :option-value="c.optionValue ? c.optionValue : '_id'"
                 :option-label="c.optionLabel ? c.optionLabel : 'name'"
-                :emit-value = "c.emitValue == false ? false : true"
+                :emit-value="c.emitValue == false ? false : true"
                 map-options
                 style="min-width: 250px; max-width: 300px"
                 :error="error"

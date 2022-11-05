@@ -2,7 +2,6 @@
   <q-page>
     <div class="col-12 q-pa-md">
       <q-card>
-        <Template1Vue/>
         <hr>
         <q-card-section>
           <div class="text-h6 text-italic float-left">
@@ -99,11 +98,9 @@ import CardList from "src/components/CardList.vue";
 import ModalVue from "src/components/Modal.vue";
 import DeleteModal from "src/components/DeleteModal.vue";
 
-import Template1Vue from "./Template1.vue";
-
 export default {
   name: "TemplatesPage",
-  components: { CardList, DeleteModal, ModalVue, Template1Vue },
+  components: { CardList, DeleteModal, ModalVue },
   setup() {
     const templateStore = useTemplateStore();
     const { fetchTemplates, createTemplate, editTemplate, deleteTemplate } =

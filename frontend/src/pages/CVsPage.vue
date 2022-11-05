@@ -33,9 +33,74 @@
           :rules="[(val) => (val && val.length > 0) || $t('required')]"
         />
 
+        <q-input
+          filled
+          v-model="form.headerColor"
+          :label="$t('headerColor')"
+          class="mb-1"
+        >
+          <template v-slot:append>
+            <q-icon name="colorize" class="cursor-pointer">
+              <q-popup-proxy
+                cover
+                transition-show="scale"
+                transition-hide="scale"
+              >
+                <q-color v-model="form.headerColor" />
+              </q-popup-proxy>
+            </q-icon>
+          </template>
+        </q-input>
+
+        <div class="row">
+          <div class="col">
+            <q-input
+              filled
+              v-model="form.primaryColor"
+              :label="$t('primaryColor')"
+              :hint="$t('primaryColor')"
+              class="mb-1 pr-1"
+            >
+              <template v-slot:append>
+                <q-icon name="colorize" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-color v-model="form.primaryColor" />
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+          <div class="col">
+            <q-input
+              filled
+              v-model="form.secundaryColor"
+              :label="$t('secundaryColor')"
+              :hint="$t('secundaryColor')"
+              class="mb-1 pl-1"
+            >
+              <template v-slot:append>
+                <q-icon name="colorize" class="cursor-pointer">
+                  <q-popup-proxy
+                    cover
+                    transition-show="scale"
+                    transition-hide="scale"
+                  >
+                    <q-color v-model="form.secundaryColor" />
+                  </q-popup-proxy>
+                </q-icon>
+              </template>
+            </q-input>
+          </div>
+        </div>
+
         <div class="row">
           <div class="col">
             <q-select
+              class="pr-1"
               filled
               option-value="code"
               emit-value
@@ -47,7 +112,6 @@
               :label="$t('template')"
               lazy-rules
               :rules="[(val) => (val && val.length > 0) || $t('required')]"
-              style="width: 95%"
             >
               <template v-slot:option="scope">
                 <q-item v-bind="scope.itemProps">
@@ -68,7 +132,7 @@
           </div>
           <div class="col">
             <q-select
-              style="width: 95%"
+              class="pl-1"
               filled
               option-value="img"
               emit-value
@@ -255,8 +319,8 @@ export default {
           field: "skills",
           align: "left",
           multiple: true,
-          multipleKey: 'name',
-          multipleKey2: 'value',
+          multipleKey: "name",
+          multipleKey2: "value",
           multipleStar: true,
           required: true,
           select: true,
@@ -269,6 +333,36 @@ export default {
           optionTextKey: "name",
           sortable: true,
           updateText: "updateSkills",
+        },
+        {
+          name: "headerColor",
+          label: "headerColor",
+          field: "headerColor",
+          align: "left",
+          type: "text",
+          colorPicker: true,
+          required: true,
+          updateText: "updateHeaderColor",
+        },
+        {
+          name: "primaryColor",
+          label: "primaryColor",
+          field: "primaryColor",
+          align: "left",
+          type: "text",
+          colorPicker: true,
+          required: true,
+          updateText: "updatePrimaryColor",
+        },
+        {
+          name: "secundaryColor",
+          label: "secundaryColor",
+          field: "secundaryColor",
+          align: "left",
+          type: "text",
+          colorPicker: true,
+          required: true,
+          updateText: "updateSecundaryColor",
         },
         {
           name: "actions",
@@ -288,6 +382,9 @@ export default {
           profile: form.value.profile,
           template: form.value.template,
           skills: form.value.skills,
+          headerColor: form.value.headerColor,
+          primaryColor: form.value.primaryColor,
+          secundaryColor: form.value.secundaryColor,
         };
         await createCv(toSend);
       }
@@ -344,5 +441,17 @@ export default {
 <style scoped>
 .templates {
   display: none;
+}
+
+.mb-1 {
+  margin-bottom: 10px;
+}
+
+.pl-1 {
+  padding-left: 10px;
+}
+
+.pr-1 {
+  padding-right: 10px;
 }
 </style>
