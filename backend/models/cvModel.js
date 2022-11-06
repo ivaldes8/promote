@@ -29,17 +29,10 @@ const cvSchema = mongoose.Schema(
         value: { type: Number },
       },
     ],
-    about: [
-      {
-        name: {
-          type: String,
-          required: [true, "Please add a name"],
-        },
-        desc: {
-          type: String,
-        },
-      },
-    ],
+    about: {
+      type: String,
+    },
+
     experience: [
       {
         name: {

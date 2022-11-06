@@ -25,11 +25,21 @@ const routes = [
         component: () => import("pages/ProfilePage.vue"),
       },
       {
+        path: "/about",
+        name: "About",
+        component: () => import("pages/AboutPage.vue"),
+      },
+      {
         path: "/skills",
         name: "Skill",
         component: () => import("pages/SkillsPage.vue"),
       },
       { path: "/xp", name: "XP", component: () => import("pages/XPPage.vue") },
+      {
+        path: "/project",
+        name: "Project",
+        component: () => import("pages/ProjectPage.vue"),
+      },
       {
         path: "/degree",
         name: "Degree",

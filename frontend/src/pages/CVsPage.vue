@@ -191,6 +191,30 @@
             </q-item>
           </template>
         </q-select>
+
+        <q-select
+          filled
+          option-value="desc"
+          emit-value
+          option-label="desc"
+          map-options
+          v-model="form.about"
+          clearable
+          :options="abouts.about"
+          :label="$t('about')"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || $t('required')]"
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps">
+              <q-item-section>
+                <q-item-label>{{
+                  $filters.max25(scope.opt.desc)
+                }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
       </template>
     </ModalVue>
 
@@ -215,6 +239,7 @@ import { useCvStore } from "../stores/cv-store";
 import { useTemplateStore } from "../stores/template-store";
 import { useSkillStore } from "../stores/skill-store";
 import { useProfileStore } from "src/stores/profile-store";
+import { useAboutStore } from "src/stores/about-store";
 import DataTableVue from "src/components/DataTable.vue";
 import ModalVue from "src/components/Modal.vue";
 import DeleteModal from "src/components/DeleteModal.vue";
@@ -242,6 +267,10 @@ export default {
     const { fetchImages } = profileStore;
     const { images, profile } = storeToRefs(profileStore);
 
+    const aboutStore = useAboutStore();
+    const { fetchAbouts } = aboutStore;
+    const { abouts } = storeToRefs(aboutStore);
+
     const form = ref({});
     const modalVisible = ref(false);
     const alertVisible = ref(false);
@@ -255,6 +284,7 @@ export default {
     const load = async () => {
       await fetchTemplates();
       await fetchSkills();
+      await fetchAbouts();
       await fetchImages();
       await fetchCvs();
     };
@@ -365,6 +395,24 @@ export default {
           updateText: "updateSecundaryColor",
         },
         {
+          name: "about",
+          label: "abouts",
+          field: "about",
+          align: "left",
+          required: true,
+          select: true,
+          emitValue: true,
+          optionValue: "desc",
+          optionLabel: "desc",
+          long: true,
+          options: abouts.value.about,
+          customOptions: true,
+          optionText: true,
+          optionTextKey: "desc",
+          sortable: true,
+          updateText: "updateAbout",
+        },
+        {
           name: "actions",
           label: "actions",
           align: "center",
@@ -374,7 +422,6 @@ export default {
 
     const onAddCv = async (data) => {
       if (data) {
-        console.log(data.row, "Form");
         await editCv(data._id, data.row);
       } else {
         const toSend = {
@@ -382,10 +429,12 @@ export default {
           profile: form.value.profile,
           template: form.value.template,
           skills: form.value.skills,
+          about: form.value.about,
           headerColor: form.value.headerColor,
           primaryColor: form.value.primaryColor,
           secundaryColor: form.value.secundaryColor,
         };
+        console.log(toSend, "ToSend");
         await createCv(toSend);
       }
       await load();
@@ -432,6 +481,7 @@ export default {
       templates,
       skills,
       images,
+      abouts,
       cvToDownload,
       template1,
     };

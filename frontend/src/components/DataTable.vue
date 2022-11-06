@@ -56,10 +56,18 @@
         <q-tr :props="props">
           <q-td :props="props" :key="c.name" v-for="c in columns">
             {{
-              c.badged || c.image || c.switch || c.multiple || c.rating || c.colorPicker
+              c.badged ||
+              c.image ||
+              c.switch ||
+              c.multiple ||
+              c.rating ||
+              c.colorPicker ||
+              c.long
                 ? ""
                 : props.row[c.name]
             }}
+
+            {{ c.long ? $filters.max25(props.row[c.name]) : "" }}
 
             <div v-if="c.multiple">
               <div v-for="text in props.row[c.name]" :key="text">
@@ -75,7 +83,11 @@
             </div>
 
             <q-badge
-              :style="{backgroundColor: `${props.row[c.name] ? props.row[c.name] : 'blue'}`}"
+              :style="{
+                backgroundColor: `${
+                  props.row[c.name] ? props.row[c.name] : 'blue'
+                }`,
+              }"
               v-if="c.name !== 'actions' && c.colorPicker"
             >
               {{ props.row[c.name] }}
@@ -234,7 +246,12 @@
                       </q-avatar>
                     </q-item-section>
                     <q-item-section>
-                      <q-item-label v-if="c.optionText">{{
+                      <q-item-label v-if="c.optionText && c.long">{{
+                        scope.opt[`${c.optionTextKey}`]
+                          ? $filters.max25(scope.opt[`${c.optionTextKey}`])
+                          : $filters.max25(scope.opt.code)
+                      }}</q-item-label>
+                      <q-item-label v-if="c.optionText && !c.long">{{
                         scope.opt[`${c.optionTextKey}`]
                           ? scope.opt[`${c.optionTextKey}`]
                           : scope.opt.code

@@ -177,10 +177,22 @@ const linksList = [
     to: "/skills",
   },
   {
+    title: "about",
+    caption: "skillsCaption",
+    icon: "badge",
+    to: "/about",
+  },
+  {
     title: "experience",
     caption: "xpCaption",
     icon: "engineering",
     to: "/xp",
+  },
+  {
+    title: "projects",
+    caption: "projectCaption",
+    icon: "library_books",
+    to: "/project",
   },
   {
     title: "degree",

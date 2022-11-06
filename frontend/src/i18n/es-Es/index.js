@@ -5,6 +5,7 @@ export default {
   profile: 'Perfil',
   skills: 'Habilidades',
   experience: 'Experiencia',
+  experiences: 'Experiencias',
   degree: 'Grado de escolaridad',
   extraInfo: 'Información extra',
   letters: 'Cartas',
@@ -98,5 +99,18 @@ export default {
   secundaryColor: 'Color secundario',
   updateHeaderColor: 'Editar color de cabecera',
   updatePrimaryColor: 'Editar color primary',
-  updateSecundaryColor: 'Editar color secundario'
+  updateSecundaryColor: 'Editar color secundario',
+  abouts: 'Acerca de mí',
+  about: 'Acerca de mí',
+  aboutCaption: 'Gestiona tu colección acerca de ti',
+  updateAbout: 'Editar info',
+  deleteAbout: 'Eliminar acerca de mí',
+  addAbout: 'Crear acerca de mí',
+  projects: 'Proyectos',
+  project: 'Proyecto',
+  addProject: 'Crear proyecto',
+  deleteProject: 'Eliminar proyecto',
+  updateDesc: 'Editar descripción',
+  projectCaption: 'Tus propios proyectos o colaboraciones',
+  addXp: 'Crear experiencia'
 }

@@ -1,12 +1,12 @@
 <template>
   <q-page>
     <DataTableVue
-      title="experiences"
-      :rows="xps.exp"
-      :columns="xpColumns"
+      title="projects"
+      :rows="projects.project"
+      :columns="projectColumns"
       @add="modalVisible = !modalVisible"
-      @update="onAddXp"
-      @del="handleDeleteXp"
+      @update="onAddProject"
+      @del="handleDeleteProject"
       grid
       addable
       deleteable
@@ -17,9 +17,9 @@
       form
       v-show="modalVisible"
       :showDialog="modalVisible"
-      title="addXp"
+      title="addProject"
       @close="modalVisible = false"
-      @submit="onAddXp"
+      @submit="onAddProject"
     >
       <template v-slot:content>
         <q-input
@@ -43,8 +43,8 @@
       v-show="alertVisible"
       @close="alertVisible = false"
       :showDialog="alertVisible"
-      title="deleteXp"
-      @submit="submitDelXp"
+      title="deleteProject"
+      @submit="submitDelProject"
     />
   </q-page>
 </template>
@@ -52,24 +52,24 @@
 <script>
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
-import { useXpStore } from "../stores/xp-store";
+import { useProjectStore } from "../stores/project-store";
 import DataTableVue from "src/components/DataTable.vue";
 import ModalVue from "src/components/Modal.vue";
 import DeleteModal from "src/components/DeleteModal.vue";
 
 export default {
-  name: "XpsPage",
+  name: "ProjectsPage",
   components: { DataTableVue, ModalVue, DeleteModal },
   setup() {
-    const xpStore = useXpStore();
-    const { fetchXps, createXp, editXp, deleteXp } =
-      xpStore;
-    const { xps } = storeToRefs(xpStore);
+    const projectStore = useProjectStore();
+    const { fetchProjects, createProject, editProject, deleteProject } =
+      projectStore;
+    const { projects } = storeToRefs(projectStore);
     const form = ref({});
     const modalVisible = ref(false);
     const alertVisible = ref(false);
     const toDelete = ref(null);
-    const xpColumns = [
+    const projectColumns = [
       {
         name: "name",
         label: "name",
@@ -98,45 +98,45 @@ export default {
     ];
 
     const load = async () => {
-      await fetchXps();
+      await fetchProjects();
     };
 
     onMounted(async () => {
       await load();
     });
 
-    const onAddXp = async (data) => {
+    const onAddProject = async (data) => {
       if (data) {
-        await editXp(data._id, data.row);
+        await editProject(data._id, data.row);
       } else {
         const toSend = {
           name: form.value.name,
           desc: form.value.desc,
         };
-        await createXp(toSend);
+        await createProject(toSend);
       }
       await load();
       modalVisible.value = false;
     };
 
-    const handleDeleteXp = (val) => {
+    const handleDeleteProject = (val) => {
       toDelete.value = val;
       alertVisible.value = true;
     };
 
-    const submitDelXp = async () => {
-      await deleteXp(toDelete.value);
+    const submitDelProject = async () => {
+      await deleteProject(toDelete.value);
       toDelete.value = null;
       await load();
       alertVisible.value = false;
     };
 
     return {
-      xps,
-      xpColumns,
-      onAddXp,
-      handleDeleteXp,
-      submitDelXp,
+      projects,
+      projectColumns,
+      onAddProject,
+      handleDeleteProject,
+      submitDelProject,
       alertVisible,
       modalVisible,
       form,

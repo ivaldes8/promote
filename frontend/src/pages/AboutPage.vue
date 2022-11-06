@@ -1,40 +1,36 @@
 <template>
   <q-page>
     <DataTableVue
-      title="experiences"
-      :rows="xps.exp"
-      :columns="xpColumns"
+      title="abouts"
+      :rows="abouts.about"
+      :columns="aboutColumns"
       @add="modalVisible = !modalVisible"
-      @update="onAddXp"
-      @del="handleDeleteXp"
+      @update="onAddAbout"
+      @del="handleDeleteAbout"
       grid
       addable
       deleteable
       coolEdit
     />
 
+
+
     <ModalVue
       form
       v-show="modalVisible"
       :showDialog="modalVisible"
-      title="addXp"
+      title="addAbout"
       @close="modalVisible = false"
-      @submit="onAddXp"
+      @submit="onAddAbout"
     >
       <template v-slot:content>
         <q-input
           filled
-          v-model="form.name"
-          :label="$t('name')"
+          v-model="form.desc"
+          type="textarea"
+          :label="$t('about')"
           lazy-rules
           :rules="[(val) => (val && val.length > 0) || $t('required')]"
-        />
-
-        <q-input
-          filled
-          v-model="form.desc"
-          :label="$t('desc')"
-          type="textarea"
         />
       </template>
     </ModalVue>
@@ -43,8 +39,8 @@
       v-show="alertVisible"
       @close="alertVisible = false"
       :showDialog="alertVisible"
-      title="deleteXp"
-      @submit="submitDelXp"
+      title="deleteAbout"
+      @submit="submitDelAbout"
     />
   </q-page>
 </template>
@@ -52,42 +48,32 @@
 <script>
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
-import { useXpStore } from "../stores/xp-store";
+import { useAboutStore } from "../stores/about-store";
 import DataTableVue from "src/components/DataTable.vue";
 import ModalVue from "src/components/Modal.vue";
 import DeleteModal from "src/components/DeleteModal.vue";
 
 export default {
-  name: "XpsPage",
+  name: "AboutsPage",
   components: { DataTableVue, ModalVue, DeleteModal },
   setup() {
-    const xpStore = useXpStore();
-    const { fetchXps, createXp, editXp, deleteXp } =
-      xpStore;
-    const { xps } = storeToRefs(xpStore);
+    const aboutStore = useAboutStore();
+    const { fetchAbouts, createAbout, editAbout, deleteAbout } = aboutStore;
+    const { abouts } = storeToRefs(aboutStore);
     const form = ref({});
     const modalVisible = ref(false);
     const alertVisible = ref(false);
     const toDelete = ref(null);
-    const xpColumns = [
-      {
-        name: "name",
-        label: "name",
-        field: "name",
-        type: "text",
-        required: true,
-        sortable: true,
-        updateText: "updateName",
-        align: "left",
-      },
+    const aboutColumns = [
       {
         name: "desc",
-        label: "desc",
+        label: "about",
         field: "desc",
         type: "textarea",
         long: true,
+        required: true,
         sortable: true,
-        updateText: "updateDesc",
+        updateText: "updateAbout",
         align: "left",
       },
       {
@@ -98,48 +84,48 @@ export default {
     ];
 
     const load = async () => {
-      await fetchXps();
+      await fetchAbouts();
     };
 
     onMounted(async () => {
       await load();
     });
 
-    const onAddXp = async (data) => {
+    const onAddAbout = async (data) => {
       if (data) {
-        await editXp(data._id, data.row);
+        await editAbout(data._id, data.row);
       } else {
         const toSend = {
-          name: form.value.name,
           desc: form.value.desc,
         };
-        await createXp(toSend);
+        await createAbout(toSend);
       }
       await load();
       modalVisible.value = false;
     };
 
-    const handleDeleteXp = (val) => {
+    const handleDeleteAbout = (val) => {
       toDelete.value = val;
       alertVisible.value = true;
     };
 
-    const submitDelXp = async () => {
-      await deleteXp(toDelete.value);
+    const submitDelAbout = async () => {
+      await deleteAbout(toDelete.value);
       toDelete.value = null;
       await load();
       alertVisible.value = false;
     };
 
     return {
-      xps,
-      xpColumns,
-      onAddXp,
-      handleDeleteXp,
-      submitDelXp,
+      abouts,
+      aboutColumns,
+      onAddAbout,
+      handleDeleteAbout,
+      submitDelAbout,
       alertVisible,
       modalVisible,
       form,
+      text: 'asdasdas'
     };
   },
 };
