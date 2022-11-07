@@ -1,78 +1,145 @@
 <template>
   <q-page>
-    <div class="q-pa-md q-gutter-sm">
-      <q-btn label="Fixed size" color="primary" @click="fixed = !fixed" />
+    <DataTableVue
+      title="letters"
+      :rows="letters.letter"
+      :columns="letterColumns"
+      @add="modalVisible = !modalVisible"
+      @update="onAddLetter"
+      @del="handleDeleteLetter"
+      grid
+      addable
+      deleteable
+      coolEdit
+    />
 
-      <q-btn
-        label="FAlert"
-        color="primary"
-        @click="alertVisible = !alertVisible"
-      />
+    <ModalVue
+      form
+      v-show="modalVisible"
+      :showDialog="modalVisible"
+      title="addLetter"
+      @close="modalVisible = false"
+      @submit="onAddLetter"
+    >
+      <template v-slot:content>
+        <q-input
+          filled
+          v-model="form.name"
+          :label="$t('name')"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || $t('required')]"
+        />
 
-      <ModalVue v-show="fixed"
-        :showDialog="fixed"
-        title="skills"
-        @close="handleClose"
-        @submit="submit"
-      >
-        <template v-slot:content>
-          <p v-for="n in 15" :key="n">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-            repellendus sit voluptate voluptas eveniet porro. Rerum blanditiis
-            perferendis totam, ea at omnis vel numquam exercitationem aut, natus
-            minima, porro labore.
-          </p>
-        </template>
-      </ModalVue>
+        <q-input
+          filled
+          v-model="form.desc"
+          :label="$t('desc')"
+          type="textarea"
+        />
+      </template>
+    </ModalVue>
 
-      <DeleteModal v-show="alertVisible"
-        @close="handleCloseDel"
-        :showDialog="alertVisible"
-        title="deleteSkill"
-        element="PHP"
-        @submit="submitDel"
-      />
-    </div>
+    <DeleteModal
+      v-show="alertVisible"
+      @close="alertVisible = false"
+      :showDialog="alertVisible"
+      title="deleteLetter"
+      @submit="submitDelLetter"
+    />
   </q-page>
 </template>
 
 <script>
-import { ref } from "vue";
+import { onMounted, ref } from "vue";
+import { storeToRefs } from "pinia";
+import { useLetterStore } from "../stores/letter-store";
+import DataTableVue from "src/components/DataTable.vue";
 import ModalVue from "src/components/Modal.vue";
 import DeleteModal from "src/components/DeleteModal.vue";
 
 export default {
   name: "LettersPage",
-  components: { ModalVue, DeleteModal },
+  components: { DataTableVue, ModalVue, DeleteModal },
   setup() {
-    const fixed = ref(false);
+    const letterStore = useLetterStore();
+    const { fetchLetters, createLetter, editLetter, deleteLetter } =
+      letterStore;
+    const { letters } = storeToRefs(letterStore);
+    const form = ref({});
+    const modalVisible = ref(false);
     const alertVisible = ref(false);
+    const toDelete = ref(null);
+    const letterColumns = [
+      {
+        name: "name",
+        label: "name",
+        field: "name",
+        type: "text",
+        required: true,
+        sortable: true,
+        updateText: "updateName",
+        align: "left",
+      },
+      {
+        name: "desc",
+        label: "desc",
+        field: "desc",
+        type: "textarea",
+        long: true,
+        sortable: true,
+        updateText: "updateDesc",
+        align: "left",
+      },
+      {
+        name: "actions",
+        label: "actions",
+        align: "center",
+      },
+    ];
 
-    const handleClose = () => {
-      fixed.value = false;
+    const load = async () => {
+      await fetchLetters();
     };
 
-    const submit = () => {
-      console.log("Submit");
-      fixed.value = false;
+    onMounted(async () => {
+      await load();
+    });
+
+    const onAddLetter = async (data) => {
+      if (data) {
+        await editLetter(data._id, data.row);
+      } else {
+        const toSend = {
+          name: form.value.name,
+          desc: form.value.desc,
+        };
+        await createLetter(toSend);
+      }
+      await load();
+      modalVisible.value = false;
     };
 
-    const handleCloseDel = () => {
-      alertVisible.value = false;
+    const handleDeleteLetter = (val) => {
+      toDelete.value = val;
+      alertVisible.value = true;
     };
 
-    const submitDel = () => {
-      console.log("SubmitDel");
+    const submitDelLetter = async () => {
+      await deleteLetter(toDelete.value);
+      toDelete.value = null;
+      await load();
       alertVisible.value = false;
     };
 
     return {
-      fixed,
+      letters,
+      letterColumns,
+      onAddLetter,
+      handleDeleteLetter,
+      submitDelLetter,
       alertVisible,
-      submit,
-      handleClose,
-      handleCloseDel,
-      submitDel,
+      modalVisible,
+      form,
     };
   },
 };

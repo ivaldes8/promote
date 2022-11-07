@@ -112,6 +112,20 @@ export default {
   deleteProject: 'Delete project',
   updateDesc: 'Update description',
   projectCaption: 'Your own projects or colaborations',
-  addXp: 'Create experience'
+  addXp: 'Create experience',
+  languages: 'Languages',
+  languageCaption: 'The languages that you speak',
+  addLang: 'Create language',
+  deleteLang: 'Delete language',
+  degrees: 'Degrees',
+  degreeCaption: 'Your scolar titles',
+  addDegree: 'Create degree',
+  deleteDegree: 'Delete degree',
+  infos: 'Extra informations',
+  addInfo: 'Create information',
+  deleteInfo: 'Delete information',
+  lettes: 'Letters',
+  addLetter: 'Create Letter',
+  deleteLetter: 'Delete letter',
 
 }

@@ -195,6 +195,12 @@ const linksList = [
     to: "/project",
   },
   {
+    title: "languages",
+    caption: "languageCaption",
+    icon: "translate",
+    to: "/lang",
+  },
+  {
     title: "degree",
     caption: "degreeCaption",
     icon: "school",

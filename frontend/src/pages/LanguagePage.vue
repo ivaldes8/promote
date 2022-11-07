@@ -1,12 +1,12 @@
 <template>
   <q-page>
     <DataTableVue
-      title="infos"
-      :rows="infos.info"
-      :columns="infoColumns"
+      title="languages"
+      :rows="langs.language"
+      :columns="langColumns"
       @add="modalVisible = !modalVisible"
-      @update="onAddInfo"
-      @del="handleDeleteInfo"
+      @update="onAddLang"
+      @del="handleDeleteLang"
       grid
       addable
       deleteable
@@ -17,9 +17,9 @@
       form
       v-show="modalVisible"
       :showDialog="modalVisible"
-      title="addInfo"
+      title="addLang"
       @close="modalVisible = false"
-      @submit="onAddInfo"
+      @submit="onAddLang"
     >
       <template v-slot:content>
         <q-input
@@ -43,8 +43,8 @@
       v-show="alertVisible"
       @close="alertVisible = false"
       :showDialog="alertVisible"
-      title="deleteInfo"
-      @submit="submitDelInfo"
+      title="deleteLang"
+      @submit="submitDelLang"
     />
   </q-page>
 </template>
@@ -52,24 +52,24 @@
 <script>
 import { onMounted, ref } from "vue";
 import { storeToRefs } from "pinia";
-import { useInfoStore } from "../stores/info-store";
+import { useLangStore } from "../stores/language-store";
 import DataTableVue from "src/components/DataTable.vue";
 import ModalVue from "src/components/Modal.vue";
 import DeleteModal from "src/components/DeleteModal.vue";
 
 export default {
-  name: "InfosPage",
+  name: "LanguagesPage",
   components: { DataTableVue, ModalVue, DeleteModal },
   setup() {
-    const infoStore = useInfoStore();
-    const { fetchInfos, createInfo, editInfo, deleteInfo } =
-      infoStore;
-    const { infos } = storeToRefs(infoStore);
+    const langStore = useLangStore();
+    const { fetchLangs, createLang, editLang, deleteLang } =
+      langStore;
+    const { langs } = storeToRefs(langStore);
     const form = ref({});
     const modalVisible = ref(false);
     const alertVisible = ref(false);
     const toDelete = ref(null);
-    const infoColumns = [
+    const langColumns = [
       {
         name: "name",
         label: "name",
@@ -98,45 +98,45 @@ export default {
     ];
 
     const load = async () => {
-      await fetchInfos();
+      await fetchLangs();
     };
 
     onMounted(async () => {
       await load();
     });
 
-    const onAddInfo = async (data) => {
+    const onAddLang = async (data) => {
       if (data) {
-        await editInfo(data._id, data.row);
+        await editLang(data._id, data.row);
       } else {
         const toSend = {
           name: form.value.name,
           desc: form.value.desc,
         };
-        await createInfo(toSend);
+        await createLang(toSend);
       }
       await load();
       modalVisible.value = false;
     };
 
-    const handleDeleteInfo = (val) => {
+    const handleDeleteLang = (val) => {
       toDelete.value = val;
       alertVisible.value = true;
     };
 
-    const submitDelInfo = async () => {
-      await deleteInfo(toDelete.value);
+    const submitDelLang = async () => {
+      await deleteLang(toDelete.value);
       toDelete.value = null;
       await load();
       alertVisible.value = false;
     };
 
     return {
-      infos,
-      infoColumns,
-      onAddInfo,
-      handleDeleteInfo,
-      submitDelInfo,
+      langs,
+      langColumns,
+      onAddLang,
+      handleDeleteLang,
+      submitDelLang,
       alertVisible,
       modalVisible,
       form,

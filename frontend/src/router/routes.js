@@ -41,6 +41,11 @@ const routes = [
         component: () => import("pages/ProjectPage.vue"),
       },
       {
+        path: "/lang",
+        name: "Language",
+        component: () => import("pages/LanguagePage.vue"),
+      },
+      {
         path: "/degree",
         name: "Degree",
         component: () => import("pages/DegreePage.vue"),
