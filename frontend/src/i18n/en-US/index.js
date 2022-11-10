@@ -127,5 +127,8 @@ export default {
   lettes: 'Letters',
   addLetter: 'Create Letter',
   deleteLetter: 'Delete letter',
-
+  updateProjects: 'Update projects',
+  updateLanguages: 'Update languages',
+  updateDegrees: 'Update degrees',
+  updateInfos: 'Update extra info'
 }

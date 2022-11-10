@@ -128,4 +128,8 @@ export default {
   lettes: 'Cartas',
   addLetter: 'Crear carta',
   deleteLetter: 'Eliminar carta',
+  updateProjects: 'Editar proyectos',
+  updateLanguages: 'Editar idiomas',
+  updateDegrees: 'Editar grados',
+  updateInfos: 'Editar info extra'
 }

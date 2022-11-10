@@ -215,6 +215,138 @@
             </q-item>
           </template>
         </q-select>
+
+        <q-select
+          filled
+          option-value="name"
+          option-label="name"
+          map-options
+          v-model="form.experience"
+          clearable
+          multiple
+          :options="xps.exp"
+          :label="$t('experiences')"
+          lazy-rules
+          :rules="[(val) => (val && val.length > 0) || $t('required')]"
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps">
+              <q-item-section>
+                <q-item-label>{{ scope.opt.name }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+
+        <q-select
+          class="mb-1"
+          filled
+          option-value="name"
+          option-label="name"
+          map-options
+          v-model="form.project"
+          clearable
+          multiple
+          :options="projects.project"
+          :label="$t('projects')"
+          lazy-rules
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps">
+              <q-item-section>
+                <q-item-label>{{ scope.opt.name }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+
+        <q-select
+          class="mb-1"
+          filled
+          option-value="name"
+          option-label="name"
+          map-options
+          v-model="form.language"
+          clearable
+          multiple
+          :options="langs.language"
+          :label="$t('languages')"
+          lazy-rules
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps">
+              <q-item-section>
+                <q-item-label>{{ scope.opt.name }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+
+        <q-select
+          class="mb-1"
+          filled
+          option-value="name"
+          option-label="name"
+          map-options
+          v-model="form.degree"
+          clearable
+          multiple
+          :options="degrees.degree"
+          :label="$t('degrees')"
+          lazy-rules
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps">
+              <q-item-section>
+                <q-item-label>{{ scope.opt.name }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+
+        <q-select
+          class="mb-1"
+          filled
+          option-value="name"
+          option-label="name"
+          map-options
+          v-model="form.info"
+          clearable
+          multiple
+          :options="infos.info"
+          :label="$t('infos')"
+          lazy-rules
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps">
+              <q-item-section>
+                <q-item-label>{{ scope.opt.name }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
+
+        <q-select
+          class="mb-1"
+          filled
+          option-value="name"
+          option-label="name"
+          map-options
+          v-model="form.letter"
+          clearable
+          multiple
+          :options="letters.letter"
+          :label="$t('letters')"
+          lazy-rules
+        >
+          <template v-slot:option="scope">
+            <q-item v-bind="scope.itemProps">
+              <q-item-section>
+                <q-item-label>{{ scope.opt.name }}</q-item-label>
+              </q-item-section>
+            </q-item>
+          </template>
+        </q-select>
       </template>
     </ModalVue>
 
@@ -240,6 +372,12 @@ import { useTemplateStore } from "../stores/template-store";
 import { useSkillStore } from "../stores/skill-store";
 import { useProfileStore } from "src/stores/profile-store";
 import { useAboutStore } from "src/stores/about-store";
+import { useXpStore } from "src/stores/xp-store";
+import { useProjectStore } from "src/stores/project-store";
+import { useLangStore } from "src/stores/language-store";
+import { useDegreeStore } from "src/stores/degree-store";
+import { useInfoStore } from "src/stores/info-store";
+import { useLetterStore } from "src/stores/letter-store";
 import DataTableVue from "src/components/DataTable.vue";
 import ModalVue from "src/components/Modal.vue";
 import DeleteModal from "src/components/DeleteModal.vue";
@@ -271,6 +409,30 @@ export default {
     const { fetchAbouts } = aboutStore;
     const { abouts } = storeToRefs(aboutStore);
 
+    const xpStore = useXpStore();
+    const { fetchXps } = xpStore;
+    const { xps } = storeToRefs(xpStore);
+
+    const projectStore = useProjectStore();
+    const { fetchProjects } = projectStore;
+    const { projects } = storeToRefs(projectStore);
+
+    const langStore = useLangStore();
+    const { fetchLangs } = langStore;
+    const { langs } = storeToRefs(langStore);
+
+    const degreeStore = useDegreeStore();
+    const { fetchDegrees } = degreeStore;
+    const { degrees } = storeToRefs(degreeStore);
+
+    const infoStore = useInfoStore();
+    const { fetchInfos } = infoStore;
+    const { infos } = storeToRefs(infoStore);
+
+    const letterStore = useLetterStore();
+    const { fetchLetters } = letterStore;
+    const { letters } = storeToRefs(letterStore);
+
     const form = ref({});
     const modalVisible = ref(false);
     const alertVisible = ref(false);
@@ -286,6 +448,12 @@ export default {
       await fetchSkills();
       await fetchAbouts();
       await fetchImages();
+      await fetchXps();
+      await fetchProjects();
+      await fetchLangs();
+      await fetchDegrees();
+      await fetchInfos();
+      await fetchLetters();
       await fetchCvs();
     };
 
@@ -413,6 +581,115 @@ export default {
           updateText: "updateAbout",
         },
         {
+          name: "experience",
+          label: "experiences",
+          field: "experience",
+          align: "left",
+          multiple: true,
+          multipleKey: "name",
+          required: true,
+          select: true,
+          multipleSelect: true,
+          emitValue: false,
+          optionLabel: "name",
+          options: xps.value.exp,
+          customOptions: true,
+          optionText: true,
+          optionTextKey: "name",
+          sortable: true,
+          updateText: "updateXp",
+        },
+        {
+          name: "project",
+          label: "projects",
+          field: "project",
+          align: "left",
+          multiple: true,
+          multipleKey: "name",
+          select: true,
+          multipleSelect: true,
+          emitValue: false,
+          optionLabel: "name",
+          options: projects.value.project,
+          customOptions: true,
+          optionText: true,
+          optionTextKey: "name",
+          sortable: true,
+          updateText: "updateProjects",
+        },
+        {
+          name: "language",
+          label: "languages",
+          field: "language",
+          align: "left",
+          multiple: true,
+          multipleKey: "name",
+          select: true,
+          multipleSelect: true,
+          emitValue: false,
+          optionLabel: "name",
+          options: langs.value.language,
+          customOptions: true,
+          optionText: true,
+          optionTextKey: "name",
+          sortable: true,
+          updateText: "updateLanguages",
+        },
+        {
+          name: "degree",
+          label: "degrees",
+          field: "degree",
+          align: "left",
+          multiple: true,
+          multipleKey: "name",
+          select: true,
+          multipleSelect: true,
+          emitValue: false,
+          optionLabel: "name",
+          options: degrees.value.degree,
+          customOptions: true,
+          optionText: true,
+          optionTextKey: "name",
+          sortable: true,
+          updateText: "updateDegrees",
+        },
+        {
+          name: "info",
+          label: "infos",
+          field: "info",
+          align: "left",
+          multiple: true,
+          multipleKey: "name",
+          select: true,
+          multipleSelect: true,
+          emitValue: false,
+          optionLabel: "name",
+          options: infos.value.info,
+          customOptions: true,
+          optionText: true,
+          optionTextKey: "name",
+          sortable: true,
+          updateText: "updateInfos",
+        },
+        {
+          name: "letter",
+          label: "letters",
+          field: "letter",
+          align: "left",
+          multiple: true,
+          multipleKey: "name",
+          select: true,
+          multipleSelect: true,
+          emitValue: false,
+          optionLabel: "name",
+          options: letters.value.letter,
+          customOptions: true,
+          optionText: true,
+          optionTextKey: "name",
+          sortable: true,
+          updateText: "updateLetters",
+        },
+        {
           name: "actions",
           label: "actions",
           align: "center",
@@ -433,6 +710,12 @@ export default {
           headerColor: form.value.headerColor,
           primaryColor: form.value.primaryColor,
           secundaryColor: form.value.secundaryColor,
+          experience: form.value.experience,
+          project: form.value.project,
+          language: form.value.language,
+          degree: form.value.degree,
+          info: form.value.info,
+          letter: form.value.letter,
         };
         console.log(toSend, "ToSend");
         await createCv(toSend);
@@ -482,6 +765,12 @@ export default {
       skills,
       images,
       abouts,
+      xps,
+      projects,
+      langs,
+      degrees,
+      infos,
+      letters,
       cvToDownload,
       template1,
     };
