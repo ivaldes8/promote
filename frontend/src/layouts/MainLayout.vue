@@ -103,11 +103,7 @@
           color="dark"
         />
 
-        <q-select
-          v-model="language"
-          stack-label
-          :options="localeOptions"
-        >
+        <q-select v-model="language" stack-label :options="localeOptions">
           <template v-slot:selected>
             <q-chip
               v-if="language"
@@ -127,10 +123,27 @@
 
     <q-page-container>
       <router-view />
-      <q-page-sticky position="bottom-right" :offset="[18, 18]">
-        <q-btn round icon="add" color="primary" class="glossy" />
+      <q-page-sticky
+        position="bottom-right"
+        :offset="[18, 18]"
+        v-if="getCurrentUser && profile"
+      >
+        <q-btn
+          round
+          icon="question_mark"
+          color="primary"
+          class="glossy"
+          @click="steeperVisible = !steeperVisible"
+        />
       </q-page-sticky>
     </q-page-container>
+
+    <SteeperModal
+      v-show="steeperVisible"
+      :showDialog="steeperVisible"
+      title="addCv"
+      @close="steeperVisible = false"
+    />
   </q-layout>
 </template>
 
@@ -146,6 +159,8 @@ import { storeToRefs } from "pinia";
 import { useMessageStore } from "src/stores/message-store";
 import { useAuthStore } from "src/stores/auth-store";
 import { useProfileStore } from "src/stores/profile-store";
+
+import SteeperModal from "src/components/SteeperModal.vue";
 
 import EssentialLink from "components/EssentialLink.vue";
 import FooterLink from "src/components/FooterLink.vue";
@@ -178,7 +193,7 @@ const linksList = [
   },
   {
     title: "about",
-    caption: "skillsCaption",
+    caption: "aboutCaption",
     icon: "badge",
     to: "/about",
   },
@@ -250,12 +265,14 @@ export default defineComponent({
   components: {
     EssentialLink,
     FooterLink,
+    SteeperModal,
   },
   setup() {
     const $q = useQuasar();
     const route = useRoute();
     const leftDrawerOpen = ref(false);
     const darkMode = ref($q.dark.isActive);
+    const steeperVisible = ref(false);
 
     const { t, locale } = useI18n({ useScope: "global" });
     const language = ref(
@@ -380,6 +397,7 @@ export default defineComponent({
       leftDrawerOpen,
       getCurrentUser,
       profile,
+      steeperVisible,
       onLogout,
       toggleLeftDrawer() {
         leftDrawerOpen.value = !leftDrawerOpen.value;

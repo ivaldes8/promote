@@ -131,5 +131,15 @@ export default {
   updateProjects: 'Editar proyectos',
   updateLanguages: 'Editar idiomas',
   updateDegrees: 'Editar grados',
-  updateInfos: 'Editar info extra'
+  updateInfos: 'Editar info extra',
+  aboutApp: 'Esta app es basicamente un generador de Currículums Vitae, donde puedes gestionar tus CVs',
+  aboutApp2: 'También te permite crear colecciones de currículums y de la información de estos, haciendo mas fácil la gestión',
+  findMe: 'Creado con amor por:',
+  updateLetters: 'Actualizar cartas',
+  next: 'Siguiente',
+  back: 'Atrás',
+  open: 'Abrir',
+  req: '(Obligatorio)',
+  optional: '(Opcional)',
+  close: 'Cerrar'
 }

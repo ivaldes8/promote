@@ -130,5 +130,15 @@ export default {
   updateProjects: 'Update projects',
   updateLanguages: 'Update languages',
   updateDegrees: 'Update degrees',
-  updateInfos: 'Update extra info'
+  updateInfos: 'Update extra info',
+  aboutApp: 'This app is basically a cv generator, where you can manage all the info of yours CVs',
+  aboutApp2: 'Also allow you to create Curriculums and information colections, making the management easier',
+  findMe: 'Created with love by:',
+  updateLetters: 'Update letters',
+  next: 'Next',
+  back: 'Back',
+  open: 'Open',
+  req: '(Required)',
+  optional: '(Optional)',
+  close: 'Close'
 }
