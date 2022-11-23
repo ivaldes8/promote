@@ -73,6 +73,10 @@
     </q-header>
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
+      <div class="circle xxlargeDrawer shade1" />
+      <div class="circle xlargeDrawer shade2" />
+      <div class="circle largeDrawer shade3" />
+      <div class="circle smallDrawer shade5" />
       <q-list>
         <EssentialLink
           v-for="link in essentialLinks"
@@ -122,6 +126,16 @@
     </q-footer>
 
     <q-page-container>
+      <div class="circle xxlargeTop shade1" />
+      <div class="circle xlargeTop shade2" />
+      <div class="circle largeTop shade3" />
+      <div class="circle smallTop shade5" />
+
+      <div class="circle xxlargeBottom shade1" />
+      <div class="circle xlargeBottom shade2" />
+      <div class="circle largeBottom shade3" />
+      <div class="circle smallBottom shade5" />
+
       <router-view />
       <q-page-sticky
         position="bottom-right"
@@ -412,5 +426,131 @@ export default defineComponent({
 <style>
 body {
   background-color: #f0f8ff;
+  overflow-x: hidden;
+}
+
+.circle {
+  position: absolute;
+  border-radius: 100%;
+  background: rgba(0, 119, 255, 0.288);
+  animation: ripple 40s infinite;
+  box-shadow: 0px 0px 1px 0px #508fb9;
+}
+
+.smallDrawer {
+  width: 200px;
+  height: 200px;
+  left: -50px;
+  top: -50px;
+}
+
+.largeDrawer {
+  width: 200px;
+  height: 200px;
+  right: -10px;
+  top: 200px;
+}
+
+.xlargeDrawer {
+  width: 200px;
+  height: 200px;
+  left: -50px;
+  bottom: -50px;
+}
+
+.xxlargeDrawer {
+  width: 400px;
+  height: 400px;
+  left: -50px;
+  top: 500px;
+}
+
+.smallTop {
+  width: 200px;
+  height: 200px;
+  left: 0px;
+  top: -50px;
+}
+
+.largeTop {
+  width: 300px;
+  height: 300px;
+  right: -50px;
+  top: 200px;
+}
+
+.xlargeTop {
+  width: 400px;
+  height: 400px;
+  left: 50%;
+  top: 400px;
+}
+
+.xxlargeTop {
+  width: 400px;
+  height: 400px;
+  left: 0;
+  top: 200px;
+}
+
+.smallBottom {
+  width: 200px;
+  height: 200px;
+  left: 0px;
+  bottom: -50px;
+}
+
+.largeBottom {
+  width: 300px;
+  height: 300px;
+  right: -50px;
+  bottom: 200px;
+}
+
+.xlargeBottom {
+  width: 400px;
+  height: 400px;
+  left: 50%;
+  bottom: 0px;
+}
+
+.xxlargeBottom {
+  width: 400px;
+  height: 400px;
+  left: 0;
+  bottom: 200px;
+}
+
+.shade1 {
+  opacity: 0.2;
+}
+.shade2 {
+  opacity: 0.5;
+}
+
+.shade3 {
+  opacity: 0.7;
+}
+
+.shade4 {
+  opacity: 0.8;
+}
+
+.shade5 {
+  opacity: 0.9;
+}
+
+@keyframes ripple {
+  0% {
+    transform: scale(0.8);
+  }
+
+  50% {
+    transform: scale(1.2);
+  }
+
+  100% {
+    transform: scale(0.8);
+  }
 }
 </style>
