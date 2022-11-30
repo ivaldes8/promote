@@ -140,7 +140,7 @@
 
         <div class="col-8">
           <div class="row">
-            <div class="col-12">
+            <div class="col-12 mt-3">
               <h6
                 class="contentHeader ml-2"
                 :style="{
