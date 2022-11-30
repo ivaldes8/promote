@@ -5,9 +5,9 @@
         <div
           class="col-4 header"
           :style="{
-            backgroundColor: `${
-              data && data.headerColor ? data.headerColor : ''
-            }`,
+            background: `linear-gradient(180deg,${
+              data && data.primaryColor ? data.primaryColor : ''
+            } 0%, ${data && data.headerColor ? data.headerColor : ''} 35%)`,
           }"
         >
           <div class="row sidebarContainer">
@@ -317,9 +317,9 @@
         <div
           class="col-4 header"
           :style="{
-            backgroundColor: `${
-              data && data.headerColor ? data.headerColor : ''
-            }`,
+            background: `linear-gradient(180deg,${
+              data && data.primaryColor ? data.primaryColor : ''
+            } 0%, ${data && data.headerColor ? data.headerColor : ''} 35%)`,
           }"
         >
           <div class="row sidebarContainer">
@@ -495,7 +495,7 @@ export default {
   components: {},
   data() {
     return {
-      data: null
+      data: null,
     };
   },
 

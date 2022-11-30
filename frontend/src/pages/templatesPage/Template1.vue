@@ -5,9 +5,9 @@
         <div
           class="col-12 header"
           :style="{
-            backgroundColor: `${
-              data && data.headerColor ? data.headerColor : ''
-            }`,
+            background: `linear-gradient(45deg,${
+              data && data.primaryColor ? data.primaryColor : ''
+            } 0%, ${data && data.headerColor ? data.headerColor : ''} 50%)`,
           }"
         >
           <div class="row">
@@ -282,9 +282,9 @@
             <div
               class="col-12 header"
               :style="{
-                backgroundColor: `${
-                  data && data.headerColor ? data.headerColor : ''
-                }`,
+                background: `linear-gradient(45deg,${
+                  data && data.primaryColor ? data.primaryColor : ''
+                } 0%, ${data && data.headerColor ? data.headerColor : ''} 50%)`,
               }"
             >
               <div class="row">
@@ -382,6 +382,12 @@ export default {
         await html2pdf(this.$refs.document, {
           margin: 0,
           filename: "CV.pdf",
+          html2canvas: {
+            dpi: 192,
+            scale: 4,
+            letterRendering: true,
+            useCORS: true,
+          },
           image: { type: "jpeg", quality: 1 },
           jsPDF: { unit: "in", orientation: "portrait" },
         });
