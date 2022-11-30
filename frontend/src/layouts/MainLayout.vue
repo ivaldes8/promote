@@ -126,15 +126,13 @@
     </q-footer>
 
     <q-page-container>
-      <div class="circle xxlargeTop shade1" />
-      <div class="circle xlargeTop shade2" />
-      <div class="circle largeTop shade3" />
-      <div class="circle smallTop shade5" />
+      <div class="circle xxlargeTop shade1" v-if="$q.screen.gt.xs"/>
+      <div class="circle xlargeTop shade2" v-if="$q.screen.gt.xs"/>
+      <div class="circle largeTop shade3" v-if="$q.screen.gt.xs"/>
+      <div class="circle smallTop shade5" v-if="$q.screen.gt.xs"/>
 
-      <div class="circle xxlargeBottom shade1" />
-      <div class="circle xlargeBottom shade2" />
-      <div class="circle largeBottom shade3" />
-      <div class="circle smallBottom shade5" />
+
+
 
       <router-view />
       <q-page-sticky
@@ -475,14 +473,14 @@ body {
 .largeTop {
   width: 300px;
   height: 300px;
-  right: -50px;
+  right: 10%;
   top: 200px;
 }
 
 .xlargeTop {
   width: 400px;
   height: 400px;
-  left: 50%;
+  left: 30%;
   top: 400px;
 }
 
@@ -491,34 +489,6 @@ body {
   height: 400px;
   left: 0;
   top: 200px;
-}
-
-.smallBottom {
-  width: 200px;
-  height: 200px;
-  left: 0px;
-  bottom: -50px;
-}
-
-.largeBottom {
-  width: 300px;
-  height: 300px;
-  right: -50px;
-  bottom: 200px;
-}
-
-.xlargeBottom {
-  width: 400px;
-  height: 400px;
-  left: 50%;
-  bottom: 0px;
-}
-
-.xxlargeBottom {
-  width: 400px;
-  height: 400px;
-  left: 0;
-  bottom: 200px;
 }
 
 .shade1 {

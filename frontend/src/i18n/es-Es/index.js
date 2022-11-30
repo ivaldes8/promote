@@ -141,5 +141,6 @@ export default {
   open: 'Abrir',
   req: '(Obligatorio)',
   optional: '(Opcional)',
-  close: 'Cerrar'
+  close: 'Cerrar',
+  contacts: 'Contactos'
 }

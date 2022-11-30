@@ -359,7 +359,8 @@
     />
 
     <div class="templates">
-      <Template1 :cvData="cvToDownload" ref="template1" />
+      <Template1 :cvData="cvToDownload" />
+      <Template2 :cvData="cvToDownload" />
     </div>
   </q-page>
 </template>
@@ -383,10 +384,11 @@ import ModalVue from "src/components/Modal.vue";
 import DeleteModal from "src/components/DeleteModal.vue";
 
 import Template1 from "./templatesPage/Template1.vue";
+import Template2 from "./templatesPage/Template2.vue";
 
 export default {
   name: "CVS",
-  components: { DataTableVue, ModalVue, DeleteModal, Template1 },
+  components: { DataTableVue, ModalVue, DeleteModal, Template1, Template2 },
 
   setup() {
     const cvStore = useCvStore();
@@ -440,8 +442,6 @@ export default {
     const cvColumns = ref([]);
 
     const cvToDownload = ref(null);
-    const template1 = ref();
-    // template1.value.exportToPDF();
 
     const load = async () => {
       await fetchTemplates();
@@ -733,16 +733,8 @@ export default {
       const profileInfo = profile.value;
 
       cvToDownload.value = { ...row, profileInfo };
-      // template1.value.exportToPDF();
     };
 
-    // watch(cvToDownload, () => {
-    //   console.log('Change');
-    //   template1.value.exportToPDF();
-    //   template1.value.exportToPDF();
-    //   template1.value.exportToPDF();
-
-    // });
 
     const submitDelCv = async () => {
       await deleteCv(toDelete.value);
@@ -771,8 +763,7 @@ export default {
       degrees,
       infos,
       letters,
-      cvToDownload,
-      template1,
+      cvToDownload
     };
   },
 };

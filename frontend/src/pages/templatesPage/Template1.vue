@@ -28,32 +28,41 @@
             class="row"
             v-if="data && data.profileInfo && data.profileInfo.phone"
           >
-            <p class="ml-8 subHeaderText">{{ $t("phoneNumber") }}:</p>
-            <p class="subHeaderSecundary">{{ data.profileInfo.phone }}</p>
+            <p class="ml-8 contentText">{{ $t("phoneNumber") }}:</p>
+            <p class="contentTextSecundary">{{ data.profileInfo.phone }}</p>
           </div>
           <div
             class="row"
             v-if="data && data.profileInfo && data.profileInfo.email"
           >
-            <p class="ml-8 subHeaderText">{{ $t("email") }}:</p>
-            <p class="subHeaderSecundary">{{ data.profileInfo.email }}</p>
+            <p class="ml-8 contentText">{{ $t("email") }}:</p>
+            <p class="contentTextSecundary">{{ data.profileInfo.email }}</p>
           </div>
           <div
             class="row"
             v-if="data && data.profileInfo && data.profileInfo.address"
           >
-            <p class="ml-8 subHeaderText">{{ $t("address") }}:</p>
-            <p class="subHeaderSecundary">
+            <p class="ml-8 contentText">{{ $t("address") }}:</p>
+            <p class="contentTextSecundary">
               {{ data.profileInfo.address }}
             </p>
           </div>
-
-          <img v-if="data && data.profile" class="image" :src="data.profile" />
+          <br />
+          <img
+            v-if="data && data.profile"
+            class="image"
+            :style="{
+              color: `${
+                data && data.primaryColor ? data.primaryColor : 'black'
+              }`,
+            }"
+            :src="data.profile"
+          />
         </div>
 
         <div class="col-6">
           <h6
-            class="contentHeaderPrimary ml-2"
+            class="contentPrimary ml-2"
             :style="{
               backgroundColor: `${
                 data && data.primaryColor ? data.primaryColor : ''
@@ -76,7 +85,7 @@
         </div>
         <div class="col-6" v-if="data && data.skills && data.skills.length > 0">
           <h6
-            class="contentHeaderSecundary ml-2"
+            class="contentPrimary ml-2"
             :style="{
               backgroundColor: `${
                 data && data.secundaryColor ? data.secundaryColor : ''
@@ -97,8 +106,8 @@
             <div v-for="skill in data.skills" :key="skill.name">
               <div class="col-6 ml-2">
                 <div class="row">
-                  <p class="subHeaderText">{{ skill.name }}:</p>
-                  <p class="subHeaderSecundary stars">
+                  <p class="contentText">{{ skill.name }}:</p>
+                  <p class="contentTextSecundary stars">
                     <q-rating
                       v-model="skill.value"
                       max="5"
@@ -121,7 +130,7 @@
         <div class="col-6">
           <div v-if="data && data.experience && data.experience.length > 0">
             <h6
-              class="contentHeaderPrimary ml-2 mt-1"
+              class="contentPrimary ml-2 mt-1"
               :style="{
                 backgroundColor: `${
                   data && data.primaryColor ? data.primaryColor : ''
@@ -141,8 +150,10 @@
 
             <div v-for="xp in data.experience" :key="xp.name">
               <div class="row ml-2 mb-05">
-                <p class="subHeaderText">-{{ xp.name }}</p>
-                <p class="subHeaderSecundary" v-if="xp.desc">:{{ xp.desc }}</p>
+                <p class="contentText">-{{ xp.name }}</p>
+                <p class="contentTextSecundary" v-if="xp.desc">
+                  :{{ xp.desc }}
+                </p>
               </div>
             </div>
           </div>
@@ -150,7 +161,7 @@
         <div class="col-6">
           <div v-if="data && data.project && data.project.length > 0">
             <h6
-              class="contentHeaderSecundary ml-2 mt-1"
+              class="contentPrimary ml-2 mt-1"
               :style="{
                 backgroundColor: `${
                   data && data.primaryColor ? data.primaryColor : ''
@@ -169,8 +180,8 @@
             </h6>
             <div v-for="project in data.project" :key="project.name">
               <div class="row ml-2 mb-05">
-                <p class="subHeaderText">-{{ project.name }}</p>
-                <p class="subHeaderSecundary" v-if="project.desc">
+                <p class="contentText">-{{ project.name }}</p>
+                <p class="contentTextSecundary" v-if="project.desc">
                   :{{ project.desc }}
                 </p>
               </div>
@@ -179,7 +190,7 @@
 
           <div v-if="data && data.degree && data.degree.length > 0">
             <h6
-              class="contentHeaderSecundary ml-2 mt-1"
+              class="contentPrimary ml-2 mt-1"
               :style="{
                 backgroundColor: `${
                   data && data.secundaryColor ? data.secundaryColor : ''
@@ -199,14 +210,14 @@
 
             <div v-for="d in data.degree" :key="d.name">
               <div class="row ml-2 mb-05">
-                <p class="subHeaderText">-{{ d.name }}</p>
-                <p class="subHeaderSecundary" v-if="d.desc">:{{ d.desc }}</p>
+                <p class="contentText">-{{ d.name }}</p>
+                <p class="contentTextSecundary" v-if="d.desc">:{{ d.desc }}</p>
               </div>
             </div>
           </div>
           <div v-if="data && data.language && data.language.length > 0">
             <h6
-              class="contentHeaderSecundary ml-2 mt-1"
+              class="contentPrimary ml-2 mt-1"
               :style="{
                 backgroundColor: `${
                   data && data.secundaryColor ? data.secundaryColor : ''
@@ -226,8 +237,8 @@
 
             <div v-for="lang in data.language" :key="lang.name">
               <div class="row ml-2 mb-05">
-                <p class="subHeaderText">-{{ lang.name }}</p>
-                <p class="subHeaderSecundary" v-if="lang.desc">
+                <p class="contentText">-{{ lang.name }}</p>
+                <p class="contentTextSecundary" v-if="lang.desc">
                   :{{ lang.desc }}
                 </p>
               </div>
@@ -236,7 +247,7 @@
 
           <div v-if="data && data.info && data.info.length > 0">
             <h6
-              class="contentHeaderSecundary ml-2 mt-1"
+              class="contentPrimary ml-2 mt-1"
               :style="{
                 backgroundColor: `${
                   data && data.secundaryColor ? data.secundaryColor : ''
@@ -256,8 +267,8 @@
 
             <div v-for="i in data.info" :key="i.name">
               <div class="row ml-2 mb-05">
-                <p class="subHeaderText">-{{ i.name }}</p>
-                <p class="subHeaderSecundary" v-if="i.desc">:{{ i.desc }}</p>
+                <p class="contentText">-{{ i.name }}</p>
+                <p class="contentTextSecundary" v-if="i.desc">:{{ i.desc }}</p>
               </div>
             </div>
           </div>
@@ -294,31 +305,32 @@
                 class="row"
                 v-if="data && data.profileInfo && data.profileInfo.phone"
               >
-                <p class="ml-8 subHeaderText">{{ $t("phoneNumber") }}:</p>
-                <p class="subHeaderSecundary">{{ data.profileInfo.phone }}</p>
+                <p class="ml-8 contentText">{{ $t("phoneNumber") }}:</p>
+                <p class="contentTextSecundary">{{ data.profileInfo.phone }}</p>
               </div>
               <div
                 class="row"
                 v-if="data && data.profileInfo && data.profileInfo.email"
               >
-                <p class="ml-8 subHeaderText">{{ $t("email") }}:</p>
-                <p class="subHeaderSecundary">{{ data.profileInfo.email }}</p>
+                <p class="ml-8 contentText">{{ $t("email") }}:</p>
+                <p class="contentTextSecundary">{{ data.profileInfo.email }}</p>
               </div>
               <div
                 class="row"
                 v-if="data && data.profileInfo && data.profileInfo.address"
               >
-                <p class="ml-8 subHeaderText">{{ $t("address") }}:</p>
-                <p class="subHeaderSecundary">
+                <p class="ml-8 contentText">{{ $t("address") }}:</p>
+                <p class="contentTextSecundary">
                   {{ data.profileInfo.address }}
                 </p>
               </div>
+              <br />
             </div>
 
             <div v-for="l in data.letter" :key="l.name">
               <div class="ml-1 mb-05">
                 <h6
-                  class="contentHeaderSecundary ml-2 mt-1 mr-2"
+                  class="contentPrimary ml-2 mt-1 mr-2"
                   :style="{
                     backgroundColor: `${
                       data && data.primaryColor ? data.primaryColor : ''
@@ -349,10 +361,8 @@
 </template>
 
 <script>
-import { storeToRefs } from "pinia";
-import { useMessageStore } from "src/stores/message-store";
-import { ref, onMounted } from "vue";
 import html2pdf from "html2pdf.js";
+import { Loading } from "quasar";
 
 export default {
   name: "TemplateOne",
@@ -361,45 +371,31 @@ export default {
   data() {
     return {
       data: null,
-      colory: "#c536be",
     };
   },
 
   watch: {
-    cvData() {
+    async cvData() {
       this.data = this.cvData;
-      if (this.data) {
-        html2pdf(this.$refs.document, {
+      if (this.data && this.data.template && this.data.template === "01") {
+        Loading.show();
+        await html2pdf(this.$refs.document, {
           margin: 0,
-          filename: "document.pdf",
+          filename: "CV.pdf",
           image: { type: "jpeg", quality: 1 },
           jsPDF: { unit: "in", orientation: "portrait" },
         });
+        Loading.hide();
       }
-    },
-
-    // $props: {
-    //   immediate: true,
-    //   handleChange() {
-    //     console.log(this.cvData, 'DATA')
-    //   }
-    // }
-  },
-  methods: {
-    exportToPDF() {
-      // if (this.data) {
-      //   html2pdf(this.$refs.document, {
-      //     margin: 0,
-      //     filename: "document.pdf",
-      //     image: { type: "jpeg", quality: 1 },
-      //     jsPDF: { unit: "in", orientation: "portrait" },
-      //   });
-      // }
     },
   },
 };
 </script>
 <style scoped>
+h6,
+h3 {
+  font-family: "Courier New", Courier, monospace;
+}
 .header {
   border-radius: 10px;
   color: black;
@@ -413,43 +409,34 @@ export default {
   color: black;
 }
 
-.subHeaderText {
+.contentText {
   margin-top: 0px;
   margin-bottom: 0px;
   font-weight: 500;
   color: black;
 }
 
-.subHeaderSecundary {
+.contentTextSecundary {
   margin-bottom: 0px;
   margin-left: 5px;
   color: black;
 }
 
-.contentHeaderPrimary {
+.contentPrimary {
   margin: 5px;
-  border: 1px solid;
+  border: 0px solid;
   border-radius: 10px;
   color: white;
   padding-left: 5px;
   position: relative;
 }
-
-.contentHeaderSecundary {
-  margin: 5px;
-  border: 1px solid;
-  border-radius: 10px;
-  color: white;
-  padding-left: 5px;
-  position: relative;
-}
-
 .image {
   position: absolute;
-  top: 1px;
-  right: 10px;
-  width: 200px;
-  height: 200px;
+  border: 3px solid;
+  top: 10px;
+  right: 15px;
+  width: 145px;
+  height: 145px;
   border-radius: 50%;
 }
 
@@ -488,10 +475,12 @@ export default {
 }
 
 span {
+  color: transparent;
+  border-top: 10px solid transparent;
   border-right: 10px solid transparent;
   border-left: 10px solid transparent;
   position: absolute;
-  bottom: -10px;
+  bottom: -8px;
   left: 20px;
 }
 

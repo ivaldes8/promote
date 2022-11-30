@@ -140,5 +140,6 @@ export default {
   open: 'Open',
   req: '(Required)',
   optional: '(Optional)',
-  close: 'Close'
+  close: 'Close',
+  contacts: 'Contacts'
 }

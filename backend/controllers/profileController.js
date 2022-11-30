@@ -3,7 +3,7 @@ const asyncHandler = require("express-async-handler");
 const Profile = require("../models/profileModel");
 
 const getProfile = asyncHandler(async (req, res) => {
-  const profile = await Profile.find({});
+  const profile = await Profile.find({ user: req.user.id }, { user: 0 });
 
   res.status(200).json({ profile });
 });

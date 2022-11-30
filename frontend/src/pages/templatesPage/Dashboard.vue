@@ -84,8 +84,6 @@
       title="deleteTemplate"
       @submit="submitDel"
     />
-
-
   </q-page>
 </template>
 
