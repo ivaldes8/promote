@@ -191,9 +191,11 @@
 
               <div v-for="xp in data.experience" :key="xp.name">
                 <div class="row ml-2 mb-05">
-                  <p class="contentText">-{{ xp.name }}</p>
-                  <p class="contentTextSecundary" v-if="xp.desc">
-                    :{{ xp.desc }}
+                  <p class="contentText">
+                    -{{ xp.name
+                    }}<i class="contentTextSecundary" v-if="xp.desc"
+                      >:{{ xp.desc }}</i
+                    >
                   </p>
                 </div>
               </div>
@@ -225,9 +227,11 @@
               </h6>
               <div v-for="project in data.project" :key="project.name">
                 <div class="row ml-2 mb-05">
-                  <p class="contentText">-{{ project.name }}</p>
-                  <p class="contentTextSecundary" v-if="project.desc">
-                    :{{ project.desc }}
+                  <p class="contentText">
+                    -{{ project.name
+                    }}<i class="contentTextSecundary" v-if="project.desc"
+                      >:{{ project.desc }}</i
+                    >
                   </p>
                 </div>
               </div>
@@ -262,9 +266,11 @@
 
               <div v-for="d in data.degree" :key="d.name">
                 <div class="row ml-2 mb-05">
-                  <p class="contentText">-{{ d.name }}</p>
-                  <p class="contentTextSecundary" v-if="d.desc">
-                    :{{ d.desc }}
+                  <p class="contentText">
+                    -{{ d.name
+                    }}<i class="contentTextSecundary" v-if="d.desc"
+                      >:{{ d.desc }}</i
+                    >
                   </p>
                 </div>
               </div>
@@ -299,9 +305,11 @@
 
               <div v-for="i in data.info" :key="i.name">
                 <div class="row ml-2 mb-05">
-                  <p class="contentText">-{{ i.name }}</p>
-                  <p class="contentTextSecundary" v-if="i.desc">
-                    :{{ i.desc }}
+                  <p class="contentText">
+                    -{{ i.name
+                    }}<i class="contentTextSecundary" v-if="i.desc"
+                      >:{{ i.desc }}</i
+                    >
                   </p>
                 </div>
               </div>
@@ -595,6 +603,7 @@ h3 {
 .contentTextSecundary {
   margin-bottom: 0px;
   margin-left: 5px;
+  font-weight: initial;
   color: black;
 }
 
