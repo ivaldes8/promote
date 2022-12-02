@@ -95,6 +95,30 @@
               </div>
             </div>
 
+            <div v-if="data && data.info && data.info.length > 0">
+              <h6
+                class="sidebarHeader"
+                :style="{
+                  backgroundColor: `${
+                    data && data.primaryColor ? data.primaryColor : ''
+                  }`,
+                }"
+              >
+                <q-icon name="info" size="sm" />
+                {{ $t("extraInfo") }}:
+              </h6>
+              <div v-for="i in data.info" :key="i.name">
+                <div class="row ml-2 mb-05">
+                  <p class="contentText">
+                    -{{ i.name
+                    }}<i class="contentTextSecundary" v-if="i.desc"
+                      >:{{ i.desc }}</i
+                    >
+                  </p>
+                </div>
+              </div>
+            </div>
+
             <div v-if="data" class="mb-2">
               <h6
                 class="sidebarHeader"
@@ -270,45 +294,6 @@
                     -{{ d.name
                     }}<i class="contentTextSecundary" v-if="d.desc"
                       >:{{ d.desc }}</i
-                    >
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="row">
-            <div
-              class="col-12"
-              v-if="data && data.info && data.info.length > 0"
-            >
-              <h6
-                class="contentHeaderSecundary ml-2 mt-1"
-                :style="{
-                  backgroundColor: `${
-                    data && data.secundaryColor ? data.secundaryColor : ''
-                  }`,
-                }"
-              >
-                <span
-                  :style="{
-                    borderTop:
-                      '10px solid' +
-                      `${
-                        data && data.secundaryColor ? data.secundaryColor : ''
-                      }`,
-                  }"
-                ></span>
-                <q-icon name="info" size="sm" />
-                {{ $t("extraInfo") }}:
-              </h6>
-
-              <div v-for="i in data.info" :key="i.name">
-                <div class="row ml-2 mb-05">
-                  <p class="contentText">
-                    -{{ i.name
-                    }}<i class="contentTextSecundary" v-if="i.desc"
-                      >:{{ i.desc }}</i
                     >
                   </p>
                 </div>
