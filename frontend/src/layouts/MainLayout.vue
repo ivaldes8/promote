@@ -435,6 +435,12 @@ body {
   box-shadow: 0px 0px 1px 0px #508fb9;
 }
 
+.circle-simple {
+  position: absolute;
+  border-radius: 100%;
+  box-shadow: 0px 0px 1px 0px #508fb9;
+}
+
 .smallDrawer {
   width: 200px;
   height: 200px;

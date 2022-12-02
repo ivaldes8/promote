@@ -474,6 +474,50 @@
           </div>
         </div>
       </div>
+      <div
+        class="circle-simple xxlargeTop shade1"
+        :style="{
+          background: `${
+            data && data.primaryColor
+              ? data.primaryColor
+              : 'rgba(0, 119, 255, 0.288)'
+          }`,
+          opacity: 0.2,
+        }"
+      />
+      <div
+        class="circle-simple xlargeTop shade2"
+        :style="{
+          background: `${
+            data && data.primaryColor
+              ? data.primaryColor
+              : 'rgba(0, 119, 255, 0.288)'
+          }`,
+          opacity: 0.2,
+        }"
+      />
+      <div
+        class="circle-simple largeTop shade3"
+        :style="{
+          background: `${
+            data && data.primaryColor
+              ? data.primaryColor
+              : 'rgba(0, 119, 255, 0.288)'
+          }`,
+          opacity: 0.2,
+        }"
+      />
+      <div
+        class="circle-simple smallTop shade5"
+        :style="{
+          background: `${
+            data && data.primaryColor
+              ? data.primaryColor
+              : 'rgba(0, 119, 255, 0.288)'
+          }`,
+          opacity: 0.2,
+        }"
+      />
     </div>
   </q-page>
 </template>
@@ -657,5 +701,12 @@ span {
 p {
   font-size: 90%;
   color: black;
+}
+
+.smallTop {
+  width: 200px;
+  height: 200px;
+  left: 550px;
+  top: 900px;
 }
 </style>
