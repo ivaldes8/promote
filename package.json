@@ -7,8 +7,7 @@
     "build": "npx quasar build -m  pwa",
     "start": "node backend/server.js",
     "server": "nodemon backend/server.js",
-    "client": "cd frontend && quasar dev ",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend --no-shrinkwrap && npm run build --prefix frontend"
+    "client": "cd frontend && quasar dev "
   },
   "repository": {
     "type": "git",
