@@ -126,13 +126,10 @@
     </q-footer>
 
     <q-page-container>
-      <div class="circle xxlargeTop shade1" v-if="$q.screen.gt.xs"/>
-      <div class="circle xlargeTop shade2" v-if="$q.screen.gt.xs"/>
-      <div class="circle largeTop shade3" v-if="$q.screen.gt.xs"/>
-      <div class="circle smallTop shade5" v-if="$q.screen.gt.xs"/>
-
-
-
+      <div class="circle xxlargeTop shade1" v-if="$q.screen.gt.xs" />
+      <div class="circle xlargeTop shade2" v-if="$q.screen.gt.xs" />
+      <div class="circle largeTop shade3" v-if="$q.screen.gt.xs" />
+      <div class="circle smallTop shade5" v-if="$q.screen.gt.xs" />
 
       <router-view />
       <q-page-sticky
@@ -287,14 +284,18 @@ export default defineComponent({
     const steeperVisible = ref(false);
 
     const { t, locale } = useI18n({ useScope: "global" });
+    console.log(locale, "LOCALE");
     const language = ref(
       locale === "es"
         ? { value: "es", label: "ES" }
+        : locale === "pt-BR"
+        ? { value: "pt-BR", label: "PT" }
         : { value: "en-US", label: "EN" }
     );
     const localeOptions = [
       { value: "en-US", label: "EN" },
       { value: "es", label: "ES" },
+      { value: "pt-BR", label: "PT" },
     ];
 
     const store = useMessageStore();
